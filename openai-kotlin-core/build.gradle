@@ -1,0 +1,20 @@
+plugins {
+    id 'org.jetbrains.kotlin.plugin.serialization' version '1.7.22'
+    id 'org.jetbrains.kotlin.jvm' version '1.7.22'
+}
+
+group 'org.arvarik'
+version '0.0.1'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.7.22"
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-core:1.4.1"
+}
+
+test {
+    useJUnitPlatform()
+}
