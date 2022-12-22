@@ -29,7 +29,7 @@ correctly:
 
 You should see something like the following output:
 
-[OpenAI Example Run](/docs/readme/openai_example_run.png)
+![OpenAI Example Run](/docs/readme/openai_example_run.png)
 
 Keep in mind this is a generative model, so you might get different names for your squirrel!
 
