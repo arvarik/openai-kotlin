@@ -13,10 +13,14 @@ import io.ktor.client.plugins.logging.DEFAULT
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
+import io.ktor.client.request.post
+import io.ktor.client.request.setBody
+import io.ktor.client.request.url
 import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.ContentType
 import io.ktor.http.URLProtocol
+import io.ktor.http.contentType
 import io.ktor.http.isSuccess
 import io.ktor.serialization.kotlinx.KotlinxSerializationConverter
 import io.ktor.util.reflect.TypeInfo
@@ -27,13 +31,15 @@ import kotlinx.serialization.json.Json
 import org.arvarik.openai.client.OpenAIClientConfig
 import org.arvarik.openai.client.exception.OpenAIClientException
 import org.arvarik.openai.client.exception.OpenAIServerException
+import org.arvarik.openai.core.api.OpenAIRequest
+import org.arvarik.openai.core.api.OpenAIResponse
 
 private const val OPENAI_URL: String = "api.openai.com"
 
 internal class OpenAIHTTPClient(config: OpenAIClientConfig) {
     private val httpClient = constructHttpClient(config)
 
-    suspend fun <T : Any> request(info: TypeInfo, block: suspend (HttpClient) -> HttpResponse): T {
+    private suspend fun <T : Any> request(info: TypeInfo, block: suspend (HttpClient) -> HttpResponse): T {
         return try {
             val response = block(httpClient)
 
@@ -47,10 +53,14 @@ internal class OpenAIHTTPClient(config: OpenAIClientConfig) {
             throw OpenAIClientException(throwable = ex)
         }
     }
-
-    suspend inline fun <reified T> request(noinline block: suspend (HttpClient) -> HttpResponse):
-            T {
-        return request(typeInfo<T>(), block)
+    suspend inline fun <reified T : OpenAIResponse> post(request: OpenAIRequest, endpoint: String): T {
+        return this.request(typeInfo<T>()) {
+            it.post {
+                url(path = endpoint)
+                setBody(request)
+                contentType(ContentType.Application.Json)
+            }.body()
+        }
     }
 }
 

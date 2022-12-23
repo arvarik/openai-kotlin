@@ -1,8 +1,7 @@
 # OpenAI Kotlin Client
----
 A kotlin client for OpenAI APIs to quickly insert into your Kotlin JVM apps
 
-## Quick Start
+## Setup
 
 ###  Open AI setup
 

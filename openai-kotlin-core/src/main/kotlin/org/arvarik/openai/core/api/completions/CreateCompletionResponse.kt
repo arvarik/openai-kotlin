@@ -2,6 +2,7 @@ package org.arvarik.openai.core.api.completions
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import org.arvarik.openai.core.api.OpenAIResponse
 import org.arvarik.openai.core.api.Usage
 
 
@@ -10,7 +11,7 @@ import org.arvarik.openai.core.api.Usage
  *
  * Creates a completion for the provided prompt and parameters
  *
- * Documentation: https://beta.openai.com/docs/api-reference/completions
+ * Documentation: https://beta.openai.com/docs/api-reference/completions/create
  */
 @Serializable
 data class CreateCompletionResponse(
@@ -43,7 +44,7 @@ data class CreateCompletionResponse(
      * The API resources used by the associated request
      */
     val usage: Usage
-)
+) : OpenAIResponse
 
 /**
  * A singular GPT-3 model completion

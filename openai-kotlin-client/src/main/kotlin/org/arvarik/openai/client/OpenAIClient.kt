@@ -1,11 +1,13 @@
 package org.arvarik.openai.client
 
 import org.arvarik.openai.client.http.OpenAIHTTPClient
-import org.arvarik.openai.client.impl.OpenAIClientImpl
+import org.arvarik.openai.client.internal.impl.OpenAIClientImpl
 import org.arvarik.openai.core.api.completions.CreateCompletionRequest
 import org.arvarik.openai.core.api.completions.CreateCompletionResponse
+import org.arvarik.openai.core.api.edits.CreateEditRequest
+import org.arvarik.openai.core.api.edits.CreateEditResponse
 
-interface OpenAIClient : Completions // , Models, Edits, Images... TODO: Rest of clients
+interface OpenAIClient : Completions, Edits // , Models, Images... TODO: Rest of clients
 
 
 interface Completions {
@@ -21,7 +23,16 @@ interface Completions {
 
 interface Models
 
-interface Edits
+interface Edits {
+
+    /**
+     * Creates an edit request to the GPT-3 /edits endpoint
+     *
+     * @param request The given edit request object
+     * @return The generated edit response
+     */
+    suspend fun createEdit(request: CreateEditRequest): CreateEditResponse
+}
 
 interface Images
 
