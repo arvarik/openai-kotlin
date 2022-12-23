@@ -2,12 +2,15 @@ package org.arvarik.openai.core.api.completions
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import org.arvarik.openai.core.api.OpenAIRequest
 
 
 /**
  * Request object for the /completions endpoint
  *
- * Documentation: https://beta.openai.com/docs/api-reference/completions
+ * Creates a completion for the provided prompt and parameters
+ *
+ * Documentation: https://beta.openai.com/docs/api-reference/completions/create
  */
 @Serializable
 data class CreateCompletionRequest(
@@ -128,4 +131,4 @@ data class CreateCompletionRequest(
      * abuse
      */
     val user: String? = null
-)
+) : OpenAIRequest
