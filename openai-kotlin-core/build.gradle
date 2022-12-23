@@ -10,9 +10,15 @@ repositories {
     mavenCentral()
 }
 
+def kotlinVersion = "1.7.22"
+def kotlinxSerializationVersion = "1.4.1"
+
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.7.22"
-    implementation "org.jetbrains.kotlinx:kotlinx-serialization-core:1.4.1"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-core:$kotlinxSerializationVersion"
+
+    testImplementation 'io.kotest:kotest-runner-junit5:5.5.4'
+    testImplementation "org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinxSerializationVersion"
 }
 
 test {

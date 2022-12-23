@@ -33,7 +33,12 @@ You should see something like the following output:
 
 Keep in mind this is a generative model, so you might get different names for your squirrel!
 
-## Setup
+### Recommended Tools
+
+* [IntelliJ](https://www.jetbrains.com/idea/)
+  * plugin: [Kotest](https://kotest.io/docs/intellij/intellij-plugin.html)
+
+## Usage
 
 In order to use this package into your app, you'll need to declare a dependency for it from the maven repository.
 
