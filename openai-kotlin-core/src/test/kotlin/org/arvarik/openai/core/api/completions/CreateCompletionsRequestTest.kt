@@ -36,11 +36,11 @@ class CreateCompletionsRequestTest : BehaviorSpec({
             }
 
             and("createCompletionRequest string is deserialized") {
-                val usageDeserialized = Json.Default
+                val createCompletionRequestDeserialized = Json.Default
                     .decodeFromString<CreateCompletionRequest>(createCompletionRequestSerialized)
 
-                then("returns correct usage object deserialized") {
-                    usageDeserialized shouldBe createCompletionRequest
+                then("returns correct createCompletionRequest object deserialized") {
+                    createCompletionRequestDeserialized shouldBe createCompletionRequest
                 }
             }
         }
@@ -49,7 +49,7 @@ class CreateCompletionsRequestTest : BehaviorSpec({
     given("Invalid serialized string") {
         val invalidSerializedString = """{"model":"text-davinci-003","prompt":"Test prompt","suffix":"suffix","maxTokens":20,"temperature":0.5,"top_p":0.1,"presencePenalty":1.0,"bestOf":15,"logitBias":{"1":25,"2":26}}"""
 
-        `when`("usage string is deserialized") {
+        `when`("createCompletionRequest string is deserialized") {
             then("throw exception") {
                 shouldThrow<RuntimeException> {
                     Json.decodeFromString<CreateCompletionRequest>(invalidSerializedString)
