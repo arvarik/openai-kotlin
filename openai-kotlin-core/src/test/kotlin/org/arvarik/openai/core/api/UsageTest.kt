@@ -1,5 +1,6 @@
 package org.arvarik.openai.core.api
 
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldBe
 import kotlinx.serialization.decodeFromString
@@ -27,11 +28,23 @@ class UsageTest : BehaviorSpec({
                 usageSerialized shouldBe expectedSerializedString
             }
 
-            and("usage is deserialized") {
+            and("usage string is deserialized") {
                 val usageDeserialized = Json.Default.decodeFromString<Usage>(usageSerialized)
 
-                then ("returns correct usage object deserialized") {
+                then("returns correct usage object deserialized") {
                     usageDeserialized shouldBe usage
+                }
+            }
+        }
+    }
+
+    given("Invalid serialized string") {
+        val invalidSerializedString = """{"promptTokens":100,"completionTokens":101,"totalTokens":201}"""
+
+        `when`("usage string is deserialized") {
+            then("throw exception") {
+                shouldThrow<RuntimeException> {
+                    Json.Default.decodeFromString<Usage>(invalidSerializedString)
                 }
             }
         }
