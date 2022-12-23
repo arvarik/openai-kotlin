@@ -11,7 +11,7 @@ import org.arvarik.openai.core.api.GPT3Model
 /**
  * Test fixture for [CreateCompletionRequest]
  */
-class CreateCompletionsRequestTest : BehaviorSpec({
+class CreateCompletionRequestTest : BehaviorSpec({
 
     given("CreateCompletionRequest instance") {
         val createCompletionRequest = CreateCompletionRequest(

@@ -9,7 +9,7 @@ import java.time.Duration
  * @param token The API token to use for the client
  * @param timeout The request timeout, default is 30 seconds
  */
-class OpenAIClientConfig(
+data class OpenAIClientConfig(
     val token: String,
 
     val timeout: HttpTimeout? = null
