@@ -27,15 +27,16 @@ fun main() = runBlocking {
     println("=====================================================\n")
 
     // Edits API
+    val input = "I can't read good anymore"
     val createEditRequest = CreateEditRequest(
         model = "text-davinci-edit-001",
-        input = "I can't read good anymore",
+        input = input,
         instruction = "Fix the grammar in the sentence",
         temperature = 0.8
     )
 
     println("Calling /edits API to fix the grammar of the following sentence with the model text-davinci-edit-001...")
-    println("Input:\nI can't read good\nOutput:")
+    println("Input:\n" + input + "\nOutput:")
     openAI.createEdit(createEditRequest).choices.forEach { println(it.text) }
     println("=====================================================\n")
 }
