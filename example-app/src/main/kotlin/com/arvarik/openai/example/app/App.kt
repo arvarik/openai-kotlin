@@ -13,6 +13,19 @@ fun main() = runBlocking {
     val openAI = OpenAIClient(OpenAIClientConfig(token))
     val model = GPT3Model.DAVINCI.modelName
 
+    // List Models API
+    println("Calling /models API...")
+    openAI.listModels().data.forEach {
+        println("id: " + it.id)
+        println("object: " + it.`object`)
+        println("owned_by: " + it.owned_by)
+        it.permission.forEach {
+            println("permission: id: " + it.id)
+        }
+        println("-----------------------------------------------------\n")
+    }
+    println("=====================================================\n")
+
     // Completions API
     val createCompletionRequest = CreateCompletionRequest(
         model = model,

@@ -2,13 +2,25 @@ package org.arvarik.openai.client
 
 import org.arvarik.openai.client.http.OpenAIHTTPClient
 import org.arvarik.openai.client.internal.impl.OpenAIClientImpl
+import org.arvarik.openai.core.api.models.ListModels.ListModelsResponse
 import org.arvarik.openai.core.api.completions.CreateCompletionRequest
 import org.arvarik.openai.core.api.completions.CreateCompletionResponse
 import org.arvarik.openai.core.api.edits.CreateEditRequest
 import org.arvarik.openai.core.api.edits.CreateEditResponse
 
-interface OpenAIClient : Completions, Edits // , Models, Images... TODO: Rest of clients
+interface OpenAIClient : Completions, Edits, Models // Images... TODO: Rest of clients
 
+
+interface Models {
+
+    /**
+     * Creates a list models request to the /models endpoint
+     *
+     * @return The generated list models response
+     */
+    suspend fun listModels(): ListModelsResponse
+
+}
 
 interface Completions {
 
@@ -20,8 +32,6 @@ interface Completions {
      */
     suspend fun createCompletion(request: CreateCompletionRequest): CreateCompletionResponse
 }
-
-interface Models
 
 interface Edits {
 
