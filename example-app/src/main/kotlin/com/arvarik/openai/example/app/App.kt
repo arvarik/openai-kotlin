@@ -6,6 +6,7 @@ import org.arvarik.openai.client.OpenAIClientConfig
 import org.arvarik.openai.core.api.GPT3Model
 import org.arvarik.openai.core.api.completions.CreateCompletionRequest
 import org.arvarik.openai.core.api.edits.CreateEditRequest
+import org.arvarik.openai.core.api.retrieve.CreateRetrieveRequest
 
 fun main() = runBlocking {
     val openaiApiKey = System.getenv("OPENAI_API_KEY")
@@ -38,4 +39,11 @@ fun main() = runBlocking {
     println("Input:\nI can't read good\nOutput:")
     openAI.createEdit(createEditRequest).choices.forEach { println(it.text) }
     println("=====================================================\n")
+
+
+    // Models.Retrive API
+
+    val createRetrieveRequest = CreateRetrieveRequest{
+        val model = model
+    }
 }
