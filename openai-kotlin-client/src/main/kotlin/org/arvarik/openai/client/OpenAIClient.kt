@@ -8,13 +8,13 @@ import org.arvarik.openai.core.api.completions.CreateCompletionResponse
 import org.arvarik.openai.core.api.edits.CreateEditRequest
 import org.arvarik.openai.core.api.edits.CreateEditResponse
 
-interface OpenAIClient : Completions, Edits, Models // Images... TODO: Rest of clients
+interface OpenAIClient : Completions, Edits, Models, Embeddings // Images... TODO: Rest of clients
 
 
 interface Models {
 
     /**
-     * Creates a list models request to the /models endpoint
+     * Gets the currently available models, along with basic information about each such as the owner and availability, from the /models endpoint
      *
      * @return The generated list models response
      */
