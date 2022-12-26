@@ -43,13 +43,13 @@ fun main() = runBlocking {
 
     // Models.Retrive API
 
-//    val createRetrieveRequest = CreateRetrieveRequest{
-//        val model = model
-//    }
-//
-//    println("Calling /models/retrieve API")
-//    println("Returning basic information on the model used")
-//    openAI.createRetrieveRequest(CreateRetrieveRequest).choices.forEach { println(it.text) }
-//    println("=====================================================\n")
+    val createRetrieveRequest = CreateRetrieveRequest{
+        val model = model
+    }
+
+    println("Calling /models/retrieve API")
+    println("Returning basic information on the model used")
+    openAI.createRetrieveRequest(CreateRetrieveRequest).choices.forEach { println(it.text) }
+    println("=====================================================\n")
 
 }
