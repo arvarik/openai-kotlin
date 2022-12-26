@@ -35,8 +35,7 @@ data class CreateRetrieveResponse(
     /**
      * Parent model
      */
-    val parent: String?,
-
+    val parent: String?
     )
 
 data class Permission(
@@ -107,7 +106,3 @@ data class Permission(
     @SerialName("is_blocking")
     val isBlocking: Boolean
 )
-
-
-
-
