@@ -14,16 +14,28 @@ fun main() = runBlocking {
     val model = GPT3Model.DAVINCI.modelName
 
     // List Models API
-    println("Calling /models API...")
-    openAI.listModels().data.forEach {
-        println("id: " + it.id)
-        println("object: " + it.`object`)
-        println("owned_by: " + it.owned_by)
-        it.permission.forEach {
-            println("permission: id: " + it.id)
-        }
-        println("-----------------------------------------------------\n")
-    }
+    println("Calling /models API and printing data on first model...")
+    val model1 = openAI.listModels().data[0]
+    println("id: ${model1.id}")
+    println("object: ${model1.`object`}")
+    println("owned_by: ${model1.ownedBy}")
+    
+    val permission1 = model1.permission[0] // printing first permission object
+    println("permission: id: ${permission1.id}")
+    println("permission: object: ${permission1.`object`}")
+    println("permission: created: ${permission1.created}")
+    println("permission: allow_create_engine: ${permission1.allowCreateEngine}")
+    println("permission: allow_sampling: ${permission1.allowSampling}")
+    println("permission: allow_logprobs: ${permission1.allowLogprobs}")
+    println("permission: allow_search_indices: ${permission1.allowSearchIndices}")
+    println("permission: allow_view: ${permission1.allowView}")
+    println("permission: allow_fine_tuning: ${permission1.allowFineTuning}")
+    println("permission: organization: ${permission1.organization}")
+    println("permission: group: ${permission1.group}")
+    println("permission: is_blocking: ${permission1.isBlocking}")
+
+    println("root: ${model1.root}")
+    println("parent: ${model1.parent}")
     println("=====================================================\n")
 
     // Completions API
@@ -49,7 +61,7 @@ fun main() = runBlocking {
     )
 
     println("Calling /edits API to fix the grammar of the following sentence with the model text-davinci-edit-001...")
-    println("Input:\n" + input + "\nOutput:")
-    openAI.createEdit(createEditRequest).choices.forEach { println(it.text) }
+    println("Input: $input")
+    openAI.createEdit(createEditRequest).choices.forEach { println("Output: ${it.text}") }
     println("=====================================================\n")
 }

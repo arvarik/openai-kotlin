@@ -15,21 +15,21 @@ import org.arvarik.openai.core.api.OpenAIResponse
 @Serializable
 data class ListModelsResponse(
     /**
-     * The data associated with each model
-     */
-    val data: List<ModelData>,
-
-    /**
      * The object type of the response
      */
-    val `object`: String
+    val `object`: String,
+
+    /**
+     * The data associated with each model
+     */
+    val data: List<Model>
 ) : OpenAIResponse
 
 /**
  * Data on a single model
  */
 @Serializable
-data class ModelData(
+data class Model(
     /**
      * The id associated with the model
      */
@@ -43,21 +43,94 @@ data class ModelData(
     /**
      * The organization which owns the model
      */
-    val owned_by: String,
+    @SerialName("owned_by")
+    val ownedBy: String,
 
     /**
-     * Data structure describing the permissions associated with the model
+     * Permissions associated with the model
      */
-    val permission: List<PermissionData>
+    val permission: List<Permission>,
+
+    /**
+     * Root model
+     */
+    val root: String,
+
+    /**
+     * Parent model
+     */
+    val parent: String?,
 )
 
 /**
- * Data on permissions for a single model
+ * Permissions associated with a single model
  */
 @Serializable
-data class PermissionData(
+data class Permission(
     /**
      * The id associated with the model
      */
-    val id: String
+    val id: String,
+
+    /**
+     * The object type of the permission
+     */
+    val `object`: String,
+
+    /**
+     * The creation time in epoch seconds
+     */
+    val created: Long,
+
+    /**
+     * Whether the engine is allowed to be created
+     */
+    @SerialName("allow_create_engine")
+    val allowCreateEngine: Boolean,
+
+    /**
+     * Whether sampling is allowed
+     */
+    @SerialName("allow_sampling")
+    val allowSampling: Boolean,
+
+    /**
+     * Whether logprobs is allowed
+     */
+    @SerialName("allow_logprobs")
+    val allowLogprobs: Boolean,
+
+    /**
+     * Whether search indices are allowed
+     */
+    @SerialName("allow_search_indices")
+    val allowSearchIndices: Boolean,
+
+    /**
+     * Whether a view is allowed
+     */
+    @SerialName("allow_view")
+    val allowView: Boolean,
+
+    /**
+     * Whether fine tuning is allowed
+     */
+    @SerialName("allow_fine_tuning")
+    val allowFineTuning: Boolean,
+
+    /**
+     * The organization associated with the model
+     */
+    val organization: String,
+
+    /**
+     * The group associated with the model
+     */
+    val group: String?,
+
+    /**
+     * Whether the model is blocking
+     */
+    @SerialName("is_blocking")
+    val isBlocking: Boolean,
 )
