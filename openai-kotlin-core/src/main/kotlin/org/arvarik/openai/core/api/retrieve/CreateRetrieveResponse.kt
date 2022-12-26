@@ -20,6 +20,7 @@ data class CreateRetrieveResponse(
     /**
      * The owner of the object
      */
+    @SerialName("owned_by")
     val ownedBy: String,
 
     /**
