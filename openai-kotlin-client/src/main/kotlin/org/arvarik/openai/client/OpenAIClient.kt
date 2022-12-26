@@ -7,6 +7,8 @@ import org.arvarik.openai.core.api.completions.CreateCompletionRequest
 import org.arvarik.openai.core.api.completions.CreateCompletionResponse
 import org.arvarik.openai.core.api.edits.CreateEditRequest
 import org.arvarik.openai.core.api.edits.CreateEditResponse
+import org.arvarik.openai.core.api.embeddings.CreateEmbeddingsRequest
+import org.arvarik.openai.core.api.embeddings.CreateEmbeddingsResponse
 
 interface OpenAIClient : Completions, Edits, Models, Embeddings // Images... TODO: Rest of clients
 
@@ -46,7 +48,16 @@ interface Edits {
 
 interface Images
 
-interface Embeddings
+interface Embeddings {
+
+    /**
+     * Creates an embedding vector representing the input text
+     *
+     * @param request The given create embeddings request
+     * @return The embedding vector that represents the input text
+     */
+    suspend fun createEmbeddings(request: CreateEmbeddingsRequest): CreateEmbeddingsResponse
+}
 
 interface Files
 
