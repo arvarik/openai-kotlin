@@ -6,7 +6,7 @@ import org.arvarik.openai.core.api.OpenAIResponse
 //import org.arvarik.openai.core.api.Usage
 //don't think I need this'
 
-data class CreateRetrieveResponse{
+data class CreateRetrieveResponse(
     /**
      * The id associated with the completion
      */
@@ -25,8 +25,48 @@ data class CreateRetrieveResponse{
     /**
      * not too sure about what this does
      */
-    val `permission`: List<String>,
-}
+    val `permission`: List<Permission>,
+
+    val root: String,
+
+    val parent: String?,
+
+    )
+
+data class Permission(
+    val id: String,
+
+    val object: String,
+
+    val created: Long,
+
+    @SerialName("allow_create_engine")
+    val allowCreateEngine: Boolean,
+
+    @SerialName("allow_sampling")
+    val allowSampling: Boolean,
+
+    @SerialName("allow_logprobs")
+    val allowLogprobs: Boolean,
+
+    @SerialName("allow_search_indices")
+    val allowSearchIndices: Boolean,
+
+    @SerialName("allow_view")
+    val allowView: Boolean,
+
+    @SerialName("is_blocking")
+    val allowFineTuning: Boolean,
+
+    val organization: String,
+
+    val group: String?,
+
+    @SerialName("is_blocking")
+    val isBlocking: Boolean
+
+    )
+
 
 
 

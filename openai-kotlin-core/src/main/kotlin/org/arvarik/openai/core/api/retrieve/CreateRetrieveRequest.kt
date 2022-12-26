@@ -10,11 +10,11 @@ import org.arvarik.openai.core.api.OpenAIRequest
  * Documentation: https://beta.openai.com/docs/api-reference/completions/models/retrieve
  */
 
-@Serializable
+//@Serializable
 //Still need to understand usecase of keyword
-data class CreateRetrieveRequest{
+data class CreateRetrieveRequest(
     /**
      * ID of the model to use for request
      */
     val model: String,
-}
+) : OpenAIRequest
