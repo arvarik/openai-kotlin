@@ -13,7 +13,9 @@ it in your local environment:
 
 `export OPENAI_API_KEY=<your_api_key>`
 
-If you want to do this on startup of every shell session, add the above statement to your bash/zsh rc file (in either
+Then, run the command `./gradlew build` to build the program.
+
+If you want to do this on startup of every shell session, add the above statements to your bash/zsh rc file (in either
 `~/.bashrc` or `~/.zshrc` respectively)
 
 ### Example Run
