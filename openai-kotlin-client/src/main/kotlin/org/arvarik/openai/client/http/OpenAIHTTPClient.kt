@@ -27,6 +27,7 @@ import io.ktor.util.reflect.TypeInfo
 import io.ktor.util.reflect.instanceOf
 import io.ktor.util.reflect.typeInfo
 import kotlinx.serialization.json.Json
+import io.ktor.client.request.get
 
 import org.arvarik.openai.client.OpenAIClientConfig
 import org.arvarik.openai.client.exception.OpenAIClientException
@@ -62,7 +63,17 @@ internal class OpenAIHTTPClient(config: OpenAIClientConfig) {
             }.body()
         }
     }
+
+    suspend inline fun <reified T : OpenAIResponse> get(endpoint: String): T {
+        return this.request(typeInfo<T>()) {
+            it.get {
+                url(path = endpoint)
+                contentType(ContentType.Application.Json)
+            }.body()
+        }
+    }
 }
+
 
 private fun constructHttpClient(config: OpenAIClientConfig): HttpClient {
     return HttpClient(CIO) {
