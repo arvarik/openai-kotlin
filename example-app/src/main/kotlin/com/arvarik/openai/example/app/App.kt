@@ -8,6 +8,8 @@ import org.arvarik.openai.core.api.completions.CreateCompletionRequest
 import org.arvarik.openai.core.api.edits.CreateEditRequest
 import org.arvarik.openai.core.api.retrieve.CreateRetrieveRequest
 
+
+
 fun main() = runBlocking {
     val openaiApiKey = System.getenv("OPENAI_API_KEY")
     val token = requireNotNull(openaiApiKey) { "ERROR: OPENAI_API_KEY env variable not set" }
@@ -41,15 +43,35 @@ fun main() = runBlocking {
     println("=====================================================\n")
 
 
-    // Models.Retrive API
+    // Retrieve Models API
 
-    val createRetrieveRequest = CreateRetrieveRequest{
-        val model = model
-    }
+    val createRetrieveRequest = CreateRetrieveRequest(
+        model = model
+    )
 
-    println("Calling /models/retrieve API")
-    println("Returning basic information on the model used")
-    openAI.createRetrieveRequest(CreateRetrieveRequest).choices.forEach { println(it.text) }
+    println("Calling retrieve models API")
+    val retrieveModel = openAI.retrieveModels(createRetrieveRequest)
+    println("id: ${retrieveModel.id}")
+    println("object: ${retrieveModel.`object`}")
+    println("owned_by: ${retrieveModel.ownedBy}")
+
+    val permissionRetrieveModel = retrieveModel.permission[0] // printing first permission object
+    println("permission: id: ${permissionRetrieveModel.id}")
+    println("permission: object: ${permissionRetrieveModel.`object`}")
+    println("permission: created: ${permissionRetrieveModel.created}")
+    println("permission: allow_create_engine: ${permissionRetrieveModel.allowCreateEngine}")
+    println("permission: allow_sampling: ${permissionRetrieveModel.allowSampling}")
+    println("permission: allow_logprobs: ${permissionRetrieveModel.allowLogprobs}")
+    println("permission: allow_search_indices: ${permissionRetrieveModel.allowSearchIndices}")
+    println("permission: allow_view: ${permissionRetrieveModel.allowView}")
+    println("permission: allow_fine_tuning: ${permissionRetrieveModel.allowFineTuning}")
+    println("permission: organization: ${permissionRetrieveModel.organization}")
+    println("permission: group: ${permissionRetrieveModel.group}")
+    println("permission: is_blocking: ${permissionRetrieveModel.isBlocking}")
+
+    println("root: ${retrieveModel.root}")
+    println("parent: ${retrieveModel.parent}")
+
     println("=====================================================\n")
 
 }
