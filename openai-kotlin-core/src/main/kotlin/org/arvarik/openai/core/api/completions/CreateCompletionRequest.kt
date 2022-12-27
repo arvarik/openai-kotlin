@@ -10,7 +10,7 @@ import org.arvarik.openai.core.api.OpenAIRequest
  *
  * Creates a completion for the provided prompt and parameters
  *
- * Documentation: https://beta.openai.com/docs/api-reference/completions/create
+ * @see [Create Completion API](https://beta.openai.com/docs/api-reference/completions/create)
  */
 @Serializable
 data class CreateCompletionRequest(

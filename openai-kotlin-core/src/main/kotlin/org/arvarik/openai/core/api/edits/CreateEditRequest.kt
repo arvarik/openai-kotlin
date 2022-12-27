@@ -10,7 +10,7 @@ import org.arvarik.openai.core.api.OpenAIRequest
  *
  * Given a prompt and an instruction, the model will return an edited version of the prompt
  *
- * https://beta.openai.com/docs/api-reference/edits/create
+ * @see [Create Edit API](https://beta.openai.com/docs/api-reference/edits/create)
  */
 @Serializable
 data class CreateEditRequest(

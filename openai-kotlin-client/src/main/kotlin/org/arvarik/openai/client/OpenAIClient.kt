@@ -8,8 +8,10 @@ import org.arvarik.openai.core.api.edits.CreateEditRequest
 import org.arvarik.openai.core.api.edits.CreateEditResponse
 import org.arvarik.openai.core.api.embeddings.CreateEmbeddingsRequest
 import org.arvarik.openai.core.api.embeddings.CreateEmbeddingsResponse
+import org.arvarik.openai.core.api.moderations.CreateModerationRequest
+import org.arvarik.openai.core.api.moderations.CreateModerationResponse
 
-interface OpenAIClient : Completions, Edits, Embeddings // , Models, Images... TODO: Rest of clients
+interface OpenAIClient : Completions, Edits, Embeddings, Moderations // , Models, Images... TODO: Rest of clients
 
 
 interface Completions {
@@ -53,7 +55,16 @@ interface Files
 
 interface FineTunes
 
-interface Moderations
+interface Moderations {
+
+    /**
+     * Classifies if text violates OpenAI's Content Policy
+     *
+     * @param request The given create moderation request
+     * @return The moderation results indicating if the given input text violates OpenAI's Content Policy
+     */
+    suspend fun createModeration(request: CreateModerationRequest): CreateModerationResponse
+}
 
 fun OpenAIClient(config: OpenAIClientConfig): OpenAIClient {
     return OpenAIClientImpl(OpenAIHTTPClient(config))

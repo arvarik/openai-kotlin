@@ -1,52 +1,21 @@
 package org.arvarik.openai.core.api
 
-import io.kotest.assertions.throwables.shouldThrow
-import io.kotest.core.spec.style.BehaviorSpec
-import io.kotest.matchers.shouldBe
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
+import kotlinx.serialization.serializer
+import org.arvarik.openai.core.api.common.DataClassSerializationCommonTest
+
+
+val usage = Usage(
+    promptTokens = 100,
+    completionTokens = 101,
+    totalTokens = 201
+)
 
 /**
  * Test fixture for [Usage]
  */
-class UsageTest : BehaviorSpec({
-
-    given("Usage instance") {
-        val usage = Usage(
-            promptTokens = 100,
-            completionTokens = 101,
-            totalTokens = 201
-        )
-
-        `when`("usage is serialized") {
-            val usageSerialized = Json.Default.encodeToString(usage)
-
-            then("returns correct serialization") {
-                val expectedSerializedString = """{"prompt_tokens":100,"completion_tokens":101,"total_tokens":201}"""
-
-                usageSerialized shouldBe expectedSerializedString
-            }
-
-            and("usage string is deserialized") {
-                val usageDeserialized = Json.Default.decodeFromString<Usage>(usageSerialized)
-
-                then("returns correct usage object deserialized") {
-                    usageDeserialized shouldBe usage
-                }
-            }
-        }
-    }
-
-    given("Invalid serialized string") {
-        val invalidSerializedString = """{"promptTokens":100,"completionTokens":101,"totalTokens":201}"""
-
-        `when`("usage string is deserialized") {
-            then("throw exception") {
-                shouldThrow<RuntimeException> {
-                    Json.Default.decodeFromString<Usage>(invalidSerializedString)
-                }
-            }
-        }
-    }
-})
+class UsageTest : DataClassSerializationCommonTest<Usage>(
+    serializer(),
+    usage,
+    expectedSerializedString = """{"prompt_tokens":100,"completion_tokens":101,"total_tokens":201}""",
+    invalidSerializedString = """{"promptTokens":100,"completionTokens":101,"totalTokens":201}"""
+)

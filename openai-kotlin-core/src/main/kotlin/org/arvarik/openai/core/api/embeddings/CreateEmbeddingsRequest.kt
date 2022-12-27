@@ -8,7 +8,7 @@ import org.arvarik.openai.core.api.OpenAIRequest
  *
  * Given a model and input text, creates an embedding vector representing the input text
  *
- * https://beta.openai.com/docs/api-reference/embeddings/create
+ * @see [Create Embeddings API](https://beta.openai.com/docs/api-reference/embeddings/create)
  */
 @Serializable
 data class CreateEmbeddingsRequest(
