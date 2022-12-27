@@ -6,6 +6,7 @@ import org.arvarik.openai.core.api.OpenAIResponse
 //import org.arvarik.openai.core.api.Usage
 //don't think I need this
 
+@Serializable
 data class CreateRetrieveResponse(
     /**
      * The id associated with the completion
@@ -37,8 +38,9 @@ data class CreateRetrieveResponse(
      * Parent model
      */
     val parent: String?
-    )
+    ) : OpenAIResponse
 
+@Serializable
 data class Permission(
     /**
      * id associated with the model
@@ -88,7 +90,7 @@ data class Permission(
     /**
      * Whether fine tuning is allowed
      */
-    @SerialName("is_blocking")
+    @SerialName("allow_fine_tuning")
     val allowFineTuning: Boolean,
 
     /**
