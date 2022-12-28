@@ -8,10 +8,12 @@ import org.arvarik.openai.core.api.edits.CreateEditRequest
 import org.arvarik.openai.core.api.edits.CreateEditResponse
 import org.arvarik.openai.core.api.embeddings.CreateEmbeddingsRequest
 import org.arvarik.openai.core.api.embeddings.CreateEmbeddingsResponse
+import org.arvarik.openai.core.api.images.CreateImageRequest
+import org.arvarik.openai.core.api.images.CreateImageResponse
 import org.arvarik.openai.core.api.moderations.CreateModerationRequest
 import org.arvarik.openai.core.api.moderations.CreateModerationResponse
 
-interface OpenAIClient : Completions, Edits, Embeddings, Moderations // , Models, Images... TODO: Rest of clients
+interface OpenAIClient : Completions, Edits, Images, Embeddings, Moderations // TODO: Rest of clients
 
 interface Completions {
 
@@ -37,7 +39,16 @@ interface Edits {
     suspend fun createEdit(request: CreateEditRequest): CreateEditResponse
 }
 
-interface Images
+interface Images {
+
+    /**
+     * Creates an image given a prompt
+     *
+     * @param request The given create image request
+     * @return The generated image
+     */
+    suspend fun createImage(request: CreateImageRequest): CreateImageResponse
+}
 
 interface Embeddings {
 

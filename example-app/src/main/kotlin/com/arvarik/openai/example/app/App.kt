@@ -7,6 +7,7 @@ import org.arvarik.openai.core.api.GPT3Model
 import org.arvarik.openai.core.api.completions.CreateCompletionRequest
 import org.arvarik.openai.core.api.edits.CreateEditRequest
 import org.arvarik.openai.core.api.embeddings.CreateEmbeddingsRequest
+import org.arvarik.openai.core.api.images.CreateImageRequest
 import org.arvarik.openai.core.api.moderations.CreateModerationRequest
 
 fun main() = runBlocking {
@@ -14,17 +15,21 @@ fun main() = runBlocking {
     val token = requireNotNull(openaiApiKey) { "ERROR: OPENAI_API_KEY env variable not set" }
     val openAI = OpenAIClient(OpenAIClientConfig(token))
 
-    // Completions API
+    // Completions API //
     completionsApiExample(openAI)
 
-    // Edits API
+    // Edits API //
     editsApiExample(openAI)
 
-    // Embeddings API
+    // Embeddings API //
     embeddingsApiExample(openAI)
 
-    // Moderations API
+    // Moderations API //
     moderationsApiExample(openAI)
+
+    // Images APIs //
+    // (1) Create Image
+    createImagesApiExample(openAI)
 }
 
 suspend fun completionsApiExample(openAI: OpenAIClient) {
@@ -82,5 +87,14 @@ suspend fun moderationsApiExample(openAI: OpenAIClient) {
         println("Flagged - ${it.flagged}")
         println("${it.categories}\n${it.categoryScores}")
     }
+    println("=====================================================\n")
+}
+
+suspend fun createImagesApiExample(openAI: OpenAIClient) {
+    val prompt = "three friends eating lunch by the pool"
+    val createImageRequest = CreateImageRequest(prompt = prompt)
+
+    println("Calling the /images/generations API to create an image of $prompt...\nOutput:")
+    openAI.createImage(createImageRequest).data.forEach { println(it.url) }
     println("=====================================================\n")
 }
