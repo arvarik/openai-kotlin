@@ -5,7 +5,6 @@ import kotlinx.serialization.Serializable
 import org.arvarik.openai.core.api.OpenAIResponse
 import org.arvarik.openai.core.api.Usage
 
-
 /**
  * Response object for the /completions endpoint
  *

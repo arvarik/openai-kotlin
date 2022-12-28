@@ -30,7 +30,6 @@ val createCompletionResponse = CreateCompletionResponse(
     )
 )
 
-
 /**
  * Test fixture for [CreateCompletionResponse]
  */

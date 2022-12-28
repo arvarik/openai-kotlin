@@ -10,7 +10,7 @@ import org.arvarik.openai.client.http.OpenAIHTTPClient
 internal class OpenAIClientImpl(
     private val httpClient: OpenAIHTTPClient
 ) : OpenAIClient,
-        Completions by CompletionsImpl(httpClient),
-        Edits by EditsImpl(httpClient),
-        Embeddings by EmbeddingsImpl(httpClient),
-        Moderations by ModerationsImpl(httpClient)
+    Completions by CompletionsImpl(httpClient),
+    Edits by EditsImpl(httpClient),
+    Embeddings by EmbeddingsImpl(httpClient),
+    Moderations by ModerationsImpl(httpClient)

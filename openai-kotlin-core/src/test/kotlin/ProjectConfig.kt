@@ -10,7 +10,7 @@ class ProjectConfig : AbstractProjectConfig() {
     override fun extensions(): List<Extension> = listOf(
         JunitXmlReporter(
             includeContainers = false,
-            useTestPathAsName = true,
+            useTestPathAsName = true
         ),
         HtmlReporter()
     )

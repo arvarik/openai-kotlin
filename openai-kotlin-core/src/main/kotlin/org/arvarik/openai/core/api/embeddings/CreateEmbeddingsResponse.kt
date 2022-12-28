@@ -34,7 +34,6 @@ data class CreateEmbeddingsResponse(
     val usage: Usage
 ) : OpenAIResponse
 
-
 @Serializable
 data class Embedding(
     /**

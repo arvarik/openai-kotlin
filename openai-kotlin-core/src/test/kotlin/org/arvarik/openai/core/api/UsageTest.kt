@@ -3,7 +3,6 @@ package org.arvarik.openai.core.api
 import kotlinx.serialization.serializer
 import org.arvarik.openai.core.api.common.DataClassSerializationCommonTest
 
-
 val usage = Usage(
     promptTokens = 100,
     completionTokens = 101,

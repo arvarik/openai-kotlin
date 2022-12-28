@@ -13,7 +13,6 @@ import org.arvarik.openai.core.api.moderations.CreateModerationResponse
 
 interface OpenAIClient : Completions, Edits, Embeddings, Moderations // , Models, Images... TODO: Rest of clients
 
-
 interface Completions {
 
     /**

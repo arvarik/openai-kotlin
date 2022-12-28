@@ -5,7 +5,6 @@ import org.arvarik.openai.core.api.GPT3Model
 import org.arvarik.openai.core.api.Usage
 import org.arvarik.openai.core.api.common.DataClassSerializationCommonTest
 
-
 val createEmbeddingsResponse = CreateEmbeddingsResponse(
     `object` = "Test object",
     model = GPT3Model.ADA.modelName,

@@ -4,7 +4,6 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.arvarik.openai.core.api.OpenAIRequest
 
-
 /**
  * Request object for the /completions endpoint
  *

@@ -4,7 +4,6 @@ import kotlinx.serialization.serializer
 import org.arvarik.openai.core.api.GPT3Model
 import org.arvarik.openai.core.api.common.DataClassSerializationCommonTest
 
-
 val createEditRequest = CreateEditRequest(
     model = GPT3Model.DAVINCI.modelName,
     input = "Test input",

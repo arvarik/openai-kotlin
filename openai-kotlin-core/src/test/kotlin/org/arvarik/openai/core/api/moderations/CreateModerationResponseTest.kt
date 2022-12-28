@@ -3,7 +3,6 @@ package org.arvarik.openai.core.api.moderations
 import kotlinx.serialization.serializer
 import org.arvarik.openai.core.api.common.DataClassSerializationCommonTest
 
-
 val createModerationResponse = CreateModerationResponse(
     id = "Test id",
     model = "Test model",
