@@ -1,5 +1,7 @@
 package com.arvarik.openai.example.app
 
+import kotlinx.coroutines.joinAll
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.arvarik.openai.client.OpenAIClient
 import org.arvarik.openai.client.OpenAIClientConfig
@@ -9,27 +11,32 @@ import org.arvarik.openai.core.api.edits.CreateEditRequest
 import org.arvarik.openai.core.api.embeddings.CreateEmbeddingsRequest
 import org.arvarik.openai.core.api.images.CreateImageRequest
 import org.arvarik.openai.core.api.moderations.CreateModerationRequest
+import kotlin.system.measureTimeMillis
 
 fun main() = runBlocking {
     val openaiApiKey = System.getenv("OPENAI_API_KEY")
     val token = requireNotNull(openaiApiKey) { "ERROR: OPENAI_API_KEY env variable not set" }
     val openAI = OpenAIClient(OpenAIClientConfig(token))
 
-    // Completions API //
-    completionsApiExample(openAI)
+    val timeInMillis = measureTimeMillis {
+        val jobs = listOf(
+            // Completions API //
+            launch { completionsApiExample(openAI) },
+            // Edits API //
+            launch { editsApiExample(openAI) },
+            // Embeddings API //
+            launch { embeddingsApiExample(openAI) },
+            // Moderations API //
+            launch { moderationsApiExample(openAI) },
+            // Images APIs //
+            // (1) Create Image
+            launch { createImagesApiExample(openAI) }
+        )
 
-    // Edits API //
-    editsApiExample(openAI)
+        jobs.joinAll()
+    }
 
-    // Embeddings API //
-    embeddingsApiExample(openAI)
-
-    // Moderations API //
-    moderationsApiExample(openAI)
-
-    // Images APIs //
-    // (1) Create Image
-    createImagesApiExample(openAI)
+    println("Finished example-app OpenAI API executions in ${timeInMillis}ms")
 }
 
 suspend fun completionsApiExample(openAI: OpenAIClient) {
@@ -40,10 +47,11 @@ suspend fun completionsApiExample(openAI: OpenAIClient) {
         maxTokens = 20,
         temperature = 0.7
     )
+    val createCompletionResponse = openAI.createCompletion(createCompletionRequest)
 
     println("Calling /completions API with the model $model...")
     println("Generated three names to call my pet squirrel:")
-    openAI.createCompletion(createCompletionRequest).choices.forEach { println(it.text) }
+    createCompletionResponse.choices.forEach { println(it.text) }
     println("=====================================================\n")
 }
 
@@ -56,10 +64,11 @@ suspend fun editsApiExample(openAI: OpenAIClient) {
         instruction = "Fix the grammar in the sentence",
         temperature = 0.8
     )
+    val createEditResponse = openAI.createEdit(createEditRequest)
 
     println("Calling /edits API to fix the grammar of the following sentence with the model $model...")
     println("Input:\n$input\nOutput:")
-    openAI.createEdit(createEditRequest).choices.forEach { println(it.text) }
+    createEditResponse.choices.forEach { println(it.text) }
     println("=====================================================\n")
 }
 
@@ -70,20 +79,22 @@ suspend fun embeddingsApiExample(openAI: OpenAIClient) {
         model = model,
         input = listOf(embeddingsInput)
     )
+    val createEmbeddingsResponse = openAI.createEmbeddings(createEmbeddingsRequest)
 
     println("Calling the /embeddings API for the following sentence with the model $model...")
     println("Input:\n$embeddingsInput\nOutput (First 5 vector embeddings):")
-    openAI.createEmbeddings(createEmbeddingsRequest).data.forEach { println(it.embedding.slice(0..5)) }
+    createEmbeddingsResponse.data.forEach { println(it.embedding.slice(0..5)) }
     println("=====================================================\n")
 }
 
 suspend fun moderationsApiExample(openAI: OpenAIClient) {
     val moderationsInput = "I wanna die"
     val createModerationRequest = CreateModerationRequest(input = listOf(moderationsInput))
+    val createModerationResponse = openAI.createModeration(createModerationRequest)
 
     println("Calling the /moderations API for the following sentence with the model text-moderation-latest...")
     println("Input:\n$moderationsInput\nOutput:")
-    openAI.createModeration(createModerationRequest).results.forEach {
+    createModerationResponse.results.forEach {
         println("Flagged - ${it.flagged}")
         println("${it.categories}\n${it.categoryScores}")
     }
@@ -93,8 +104,9 @@ suspend fun moderationsApiExample(openAI: OpenAIClient) {
 suspend fun createImagesApiExample(openAI: OpenAIClient) {
     val prompt = "three friends eating lunch by the pool"
     val createImageRequest = CreateImageRequest(prompt = prompt)
+    val createImageResponse = openAI.createImage(createImageRequest)
 
     println("Calling the /images/generations API to create an image of $prompt...\nOutput:")
-    openAI.createImage(createImageRequest).data.forEach { println(it.url) }
+    createImageResponse.data.forEach { println(it.url) }
     println("=====================================================\n")
 }
