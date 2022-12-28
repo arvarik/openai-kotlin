@@ -18,6 +18,14 @@ interface OpenAIClient : Completions, Edits, Models //, Images... TODO: Rest of 
 
 
 
+=======
+import org.arvarik.openai.core.api.images.CreateImageRequest
+import org.arvarik.openai.core.api.images.CreateImageResponse
+import org.arvarik.openai.core.api.moderations.CreateModerationRequest
+import org.arvarik.openai.core.api.moderations.CreateModerationResponse
+
+interface OpenAIClient : Completions, Edits, Images, Embeddings, Moderations // TODO: Rest of clients
+
 
 interface Completions {
 
@@ -45,7 +53,16 @@ interface Edits {
     suspend fun createEdit(request: CreateEditRequest): CreateEditResponse
 }
 
-interface Images
+interface Images {
+
+    /**
+     * Creates an image given a prompt
+     *
+     * @param request The given create image request
+     * @return The generated image
+     */
+    suspend fun createImage(request: CreateImageRequest): CreateImageResponse
+}
 
 interface Embeddings {
 
@@ -62,7 +79,16 @@ interface Files
 
 interface FineTunes
 
-interface Moderations
+interface Moderations {
+
+    /**
+     * Classifies if text violates OpenAI's Content Policy
+     *
+     * @param request The given create moderation request
+     * @return The moderation results indicating if the given input text violates OpenAI's Content Policy
+     */
+    suspend fun createModeration(request: CreateModerationRequest): CreateModerationResponse
+}
 
 fun OpenAIClient(config: OpenAIClientConfig): OpenAIClient {
     return OpenAIClientImpl(OpenAIHTTPClient(config))

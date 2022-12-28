@@ -28,7 +28,6 @@ import io.ktor.util.reflect.instanceOf
 import io.ktor.util.reflect.typeInfo
 import kotlinx.serialization.json.Json
 import io.ktor.client.request.get
-
 import org.arvarik.openai.client.OpenAIClientConfig
 import org.arvarik.openai.client.exception.OpenAIClientException
 import org.arvarik.openai.client.exception.OpenAIServerException

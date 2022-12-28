@@ -4,13 +4,12 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.arvarik.openai.core.api.OpenAIRequest
 
-
 /**
  * Request object for the /edits endpoint
  *
  * Given a prompt and an instruction, the model will return an edited version of the prompt
  *
- * https://beta.openai.com/docs/api-reference/edits/create
+ * @see [Create Edit API](https://beta.openai.com/docs/api-reference/edits/create)
  */
 @Serializable
 data class CreateEditRequest(

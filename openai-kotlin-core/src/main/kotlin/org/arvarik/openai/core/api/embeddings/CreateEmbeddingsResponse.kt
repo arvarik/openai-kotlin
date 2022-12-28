@@ -4,6 +4,13 @@ import kotlinx.serialization.Serializable
 import org.arvarik.openai.core.api.OpenAIResponse
 import org.arvarik.openai.core.api.Usage
 
+/**
+ * Response object for the /embeddings endpoint
+ *
+ * Given a model and input text, creates an embedding vector representing the input text
+ *
+ * @see [Create Embeddings API](https://beta.openai.com/docs/api-reference/embeddings/create)
+ */
 @Serializable
 data class CreateEmbeddingsResponse(
     /**
@@ -26,7 +33,6 @@ data class CreateEmbeddingsResponse(
      */
     val usage: Usage
 ) : OpenAIResponse
-
 
 @Serializable
 data class Embedding(

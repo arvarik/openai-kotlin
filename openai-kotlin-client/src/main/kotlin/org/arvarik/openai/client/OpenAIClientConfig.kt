@@ -2,7 +2,6 @@ package org.arvarik.openai.client
 
 import java.time.Duration
 
-
 /**
  * The OpenAI client configuration needed to instantiate the client
  *
