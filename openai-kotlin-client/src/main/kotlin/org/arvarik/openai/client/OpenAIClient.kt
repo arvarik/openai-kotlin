@@ -11,6 +11,8 @@ import org.arvarik.openai.core.api.images.CreateImageEditRequest
 import org.arvarik.openai.core.api.images.CreateImageEditResponse
 import org.arvarik.openai.core.api.images.CreateImageRequest
 import org.arvarik.openai.core.api.images.CreateImageResponse
+import org.arvarik.openai.core.api.images.CreateImageVariationRequest
+import org.arvarik.openai.core.api.images.CreateImageVariationResponse
 import org.arvarik.openai.core.api.moderations.CreateModerationRequest
 import org.arvarik.openai.core.api.moderations.CreateModerationResponse
 
@@ -57,6 +59,14 @@ interface Images {
      * @return The generated edited image
      */
     suspend fun createImageEdit(request: CreateImageEditRequest): CreateImageEditResponse
+
+    /**
+     * Creates a variation of a given image
+     *
+     * @param request The given create image variation request
+     * @return The generated image variation
+     */
+    suspend fun createImageVariation(request: CreateImageVariationRequest): CreateImageVariationResponse
 }
 
 interface Embeddings {
