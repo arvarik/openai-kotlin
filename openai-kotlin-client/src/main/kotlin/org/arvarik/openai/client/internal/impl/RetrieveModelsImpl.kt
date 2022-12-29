@@ -8,11 +8,10 @@ import org.arvarik.openai.core.api.retrieve.CreateRetrieveResponse
 internal class RetrieveModelsImpl(private val httpClient: OpenAIHTTPClient) : Models {
 
     override suspend fun retrieveModels(request: CreateRetrieveRequest): CreateRetrieveResponse {
-        return httpClient.get(RetrieveModelsEndpoint)
-//        ${request.model}
+        return httpClient.get("RetrieveModelsEndpoint${request.model}")
     }
 
     companion object {
-        private const val RetrieveModelsEndpoint = "v1/models/text-davinci-edit-001"
+        private const val RetrieveModelsEndpoint = "v1/models/"
     }
 }
