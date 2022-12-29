@@ -1,6 +1,5 @@
 package org.arvarik.openai.client
 
-import org.arvarik.openai.client.http.OpenAIHTTPClient
 import org.arvarik.openai.client.internal.impl.OpenAIClientImpl
 import org.arvarik.openai.core.api.completions.CreateCompletionRequest
 import org.arvarik.openai.core.api.completions.CreateCompletionResponse
@@ -8,6 +7,8 @@ import org.arvarik.openai.core.api.edits.CreateEditRequest
 import org.arvarik.openai.core.api.edits.CreateEditResponse
 import org.arvarik.openai.core.api.embeddings.CreateEmbeddingsRequest
 import org.arvarik.openai.core.api.embeddings.CreateEmbeddingsResponse
+import org.arvarik.openai.core.api.images.CreateImageEditRequest
+import org.arvarik.openai.core.api.images.CreateImageEditResponse
 import org.arvarik.openai.core.api.images.CreateImageRequest
 import org.arvarik.openai.core.api.images.CreateImageResponse
 import org.arvarik.openai.core.api.moderations.CreateModerationRequest
@@ -48,6 +49,14 @@ interface Images {
      * @return The generated image
      */
     suspend fun createImage(request: CreateImageRequest): CreateImageResponse
+
+    /**
+     * Creates an edited or extended image given an original image and a prompt
+     *
+     * @param request The given create image edit request
+     * @return The generated edited image
+     */
+    suspend fun createImageEdit(request: CreateImageEditRequest): CreateImageEditResponse
 }
 
 interface Embeddings {
@@ -77,5 +86,5 @@ interface Moderations {
 }
 
 fun OpenAIClient(config: OpenAIClientConfig): OpenAIClient {
-    return OpenAIClientImpl(OpenAIHTTPClient(config))
+    return OpenAIClientImpl(config)
 }

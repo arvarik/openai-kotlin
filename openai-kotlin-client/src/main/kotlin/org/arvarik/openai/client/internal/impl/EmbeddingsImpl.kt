@@ -1,7 +1,7 @@
 package org.arvarik.openai.client.internal.impl
 
 import org.arvarik.openai.client.Embeddings
-import org.arvarik.openai.client.http.OpenAIHTTPClient
+import org.arvarik.openai.client.internal.http.OpenAIHTTPClient
 import org.arvarik.openai.core.api.embeddings.CreateEmbeddingsRequest
 import org.arvarik.openai.core.api.embeddings.CreateEmbeddingsResponse
 
