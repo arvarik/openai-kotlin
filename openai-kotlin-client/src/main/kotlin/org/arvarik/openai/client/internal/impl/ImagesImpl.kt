@@ -12,6 +12,8 @@ import org.arvarik.openai.core.api.images.CreateImageEditRequest
 import org.arvarik.openai.core.api.images.CreateImageEditResponse
 import org.arvarik.openai.core.api.images.CreateImageRequest
 import org.arvarik.openai.core.api.images.CreateImageResponse
+import org.arvarik.openai.core.api.images.CreateImageVariationRequest
+import org.arvarik.openai.core.api.images.CreateImageVariationResponse
 
 internal class ImagesImpl(
     private val httpClient: OpenAIHTTPClient,
@@ -37,6 +39,19 @@ internal class ImagesImpl(
         return httpClient.post(form, ImagesEditsEndpoint)
     }
 
+    override suspend fun createImageVariation(request: CreateImageVariationRequest): CreateImageVariationResponse {
+        val form = formData {
+            appendPngImageInBytes("image", request.image)
+
+            request.n?.let { append(key = "n", value = it) }
+            request.size?.let { append(key = "size", value = it) }
+            request.responseFormat?.let { append(key = "response_format", value = it) }
+            request.user?.let { append(key = "user", value = it) }
+        }
+
+        return httpClient.post(form, ImagesVariationsEndpoint)
+    }
+
     private fun FormBuilder.appendPngImageInBytes(key: String, filePath: String) {
         val image = localFileSystem.readImageFileInBytes(filePath)
         append(
@@ -52,5 +67,6 @@ internal class ImagesImpl(
     companion object {
         private const val ImagesGenerationsEndpoint = "/v1/images/generations"
         private const val ImagesEditsEndpoint = "/v1/images/edits"
+        private const val ImagesVariationsEndpoint = "/v1/images/variations"
     }
 }

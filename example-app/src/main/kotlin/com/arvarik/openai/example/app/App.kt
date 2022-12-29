@@ -12,6 +12,7 @@ import org.arvarik.openai.core.api.edits.CreateEditRequest
 import org.arvarik.openai.core.api.embeddings.CreateEmbeddingsRequest
 import org.arvarik.openai.core.api.images.CreateImageEditRequest
 import org.arvarik.openai.core.api.images.CreateImageRequest
+import org.arvarik.openai.core.api.images.CreateImageVariationRequest
 import org.arvarik.openai.core.api.moderations.CreateModerationRequest
 import java.time.Duration
 import kotlin.reflect.KSuspendFunction1
@@ -39,6 +40,8 @@ fun main() = runBlocking {
         ::createImageApiExample,
         // (2) Create Image Edit
         ::createImageEditApiExample,
+        // (3) Create Image Variation
+        ::createImageVariationApiExample,
         openAI = openAI
     )
 
@@ -170,6 +173,21 @@ suspend fun createImageEditApiExample(openAI: OpenAIClient) {
         model = "DALL-E",
         prompt,
         task = "Edit the given image with the input instruction",
+        output
+    )
+}
+
+suspend fun createImageVariationApiExample(openAI: OpenAIClient) {
+    val image = "./images/taxi.png"
+    val createImageVariationResponse = openAI.createImageVariation(CreateImageVariationRequest(image = image))
+
+    val output = createImageVariationResponse.data.joinToString("\n") { it.url }
+
+    printOutput(
+        api = "CreateImageVariation (/images/variations)",
+        model = "DALL-E",
+        input = "Input is a generic image of a taxi - found under /images/taxi.png",
+        task = "Create a variation of the input image",
         output
     )
 }
