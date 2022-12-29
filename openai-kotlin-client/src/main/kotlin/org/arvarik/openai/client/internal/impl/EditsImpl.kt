@@ -1,7 +1,7 @@
 package org.arvarik.openai.client.internal.impl
 
 import org.arvarik.openai.client.Edits
-import org.arvarik.openai.client.http.OpenAIHTTPClient
+import org.arvarik.openai.client.internal.http.OpenAIHTTPClient
 import org.arvarik.openai.core.api.edits.CreateEditRequest
 import org.arvarik.openai.core.api.edits.CreateEditResponse
 

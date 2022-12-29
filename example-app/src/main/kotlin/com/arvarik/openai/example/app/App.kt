@@ -3,110 +3,186 @@ package com.arvarik.openai.example.app
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import org.arvarik.openai.client.HttpTimeout
 import org.arvarik.openai.client.OpenAIClient
 import org.arvarik.openai.client.OpenAIClientConfig
 import org.arvarik.openai.core.api.GPT3Model
 import org.arvarik.openai.core.api.completions.CreateCompletionRequest
 import org.arvarik.openai.core.api.edits.CreateEditRequest
 import org.arvarik.openai.core.api.embeddings.CreateEmbeddingsRequest
+import org.arvarik.openai.core.api.images.CreateImageEditRequest
 import org.arvarik.openai.core.api.images.CreateImageRequest
 import org.arvarik.openai.core.api.moderations.CreateModerationRequest
+import java.time.Duration
+import kotlin.reflect.KSuspendFunction1
 import kotlin.system.measureTimeMillis
 
 fun main() = runBlocking {
-    val openaiApiKey = System.getenv("OPENAI_API_KEY")
-    val token = requireNotNull(openaiApiKey) { "ERROR: OPENAI_API_KEY env variable not set" }
-    val openAI = OpenAIClient(OpenAIClientConfig(token))
+    val token = requireNotNull(System.getenv("OPENAI_API_KEY")) { "ERROR: OPENAI_API_KEY env variable not set" }
+    val config = OpenAIClientConfig(
+        token,
+        HttpTimeout(request = Duration.ofSeconds(60L))
+    )
+    val openAI = OpenAIClient(config)
 
-    val timeInMillis = measureTimeMillis {
-        val jobs = listOf(
-            // Completions API //
-            launch { completionsApiExample(openAI) },
-            // Edits API //
-            launch { editsApiExample(openAI) },
-            // Embeddings API //
-            launch { embeddingsApiExample(openAI) },
-            // Moderations API //
-            launch { moderationsApiExample(openAI) },
-            // Images APIs //
-            // (1) Create Image
-            launch { createImagesApiExample(openAI) }
-        )
+    val time = callOpenAIApis(
+        // Completions API //
+        ::completionsApiExample,
+        // Edits API //
+        ::editsApiExample,
+        // Embeddings API //
+        ::embeddingsApiExample,
+        // Moderations API //
+        ::moderationsApiExample,
+        // Images APIs //
+        // (1) Create Image
+        ::createImageApiExample,
+        // (2) Create Image Edit
+        ::createImageEditApiExample,
+        openAI = openAI
+    )
 
-        jobs.joinAll()
-    }
-
-    println("Finished example-app OpenAI API executions in ${timeInMillis}ms")
+    println("Finished example-app OpenAI API executions in ${time}ms")
 }
 
 suspend fun completionsApiExample(openAI: OpenAIClient) {
     val model = GPT3Model.DAVINCI.modelName
-    val createCompletionRequest = CreateCompletionRequest(
-        model = model,
-        prompt = "Give me 3 names for my pet squirrel",
-        maxTokens = 20,
-        temperature = 0.7
+    val prompt = "Give me 3 names for my pet squirrel"
+    val createCompletionResponse = openAI.createCompletion(
+        CreateCompletionRequest(
+            model = model,
+            prompt = prompt,
+            maxTokens = 20,
+            temperature = 0.7
+        )
     )
-    val createCompletionResponse = openAI.createCompletion(createCompletionRequest)
 
-    println("Calling /completions API with the model $model...")
-    println("Generated three names to call my pet squirrel:")
-    createCompletionResponse.choices.forEach { println(it.text) }
-    println("=====================================================\n")
+    val output = createCompletionResponse.choices.joinToString("\n") { it.text }.trim()
+
+    printOutput(
+        "CreateCompletion (/completions)",
+        model,
+        prompt,
+        "Creates a completion for the provided prompt",
+        output
+    )
 }
 
 suspend fun editsApiExample(openAI: OpenAIClient) {
     val model = "text-davinci-edit-001"
     val input = "I can't read good anymore"
-    val createEditRequest = CreateEditRequest(
-        model = model,
-        input = input,
-        instruction = "Fix the grammar in the sentence",
-        temperature = 0.8
+    val instruction = "Fix the grammar in the sentence"
+    val createEditResponse = openAI.createEdit(
+        CreateEditRequest(
+            model = model,
+            input = input,
+            instruction = instruction,
+            temperature = 0.8
+        )
     )
-    val createEditResponse = openAI.createEdit(createEditRequest)
 
-    println("Calling /edits API to fix the grammar of the following sentence with the model $model...")
-    println("Input:\n$input\nOutput:")
-    createEditResponse.choices.forEach { println(it.text) }
-    println("=====================================================\n")
+    val output = createEditResponse.choices.joinToString("\n") { it.text }
+
+    printOutput(
+        api = "CreateEdit (/edits)",
+        model,
+        input,
+        task = "Apply the following instruction to the input text - \"Fix the grammar in the sentence\"",
+        output
+    )
 }
 
 suspend fun embeddingsApiExample(openAI: OpenAIClient) {
     val model = "text-embedding-ada-002"
     val embeddingsInput = "The quick brown fox jumps over the lazy dog"
-    val createEmbeddingsRequest = CreateEmbeddingsRequest(
-        model = model,
-        input = listOf(embeddingsInput)
+    val createEmbeddingsResponse = openAI.createEmbeddings(
+        CreateEmbeddingsRequest(
+            model = model,
+            input = listOf(embeddingsInput)
+        )
     )
-    val createEmbeddingsResponse = openAI.createEmbeddings(createEmbeddingsRequest)
 
-    println("Calling the /embeddings API for the following sentence with the model $model...")
-    println("Input:\n$embeddingsInput\nOutput (First 5 vector embeddings):")
-    createEmbeddingsResponse.data.forEach { println(it.embedding.slice(0..5)) }
-    println("=====================================================\n")
+    val output = createEmbeddingsResponse.data.joinToString("\n") {
+        it.embedding.slice(0..5).toString()
+    }
+
+    printOutput(
+        api = "CreateEmbeddings (/embeddings)",
+        model,
+        embeddingsInput,
+        task = "Create an embedding vector representing the input text (first 5 vector embeddings)",
+        output
+    )
 }
 
 suspend fun moderationsApiExample(openAI: OpenAIClient) {
-    val moderationsInput = "I wanna die"
-    val createModerationRequest = CreateModerationRequest(input = listOf(moderationsInput))
+    val moderationInput = "I wanna die"
+    val createModerationRequest = CreateModerationRequest(input = listOf(moderationInput))
     val createModerationResponse = openAI.createModeration(createModerationRequest)
 
-    println("Calling the /moderations API for the following sentence with the model text-moderation-latest...")
-    println("Input:\n$moderationsInput\nOutput:")
-    createModerationResponse.results.forEach {
-        println("Flagged - ${it.flagged}")
-        println("${it.categories}\n${it.categoryScores}")
+    val output = createModerationResponse.results.joinToString("\n") {
+        "Flagged - ${it.flagged}\n${it.categories}\n${it.categoryScores}"
     }
-    println("=====================================================\n")
+
+    printOutput(
+        api = "CreateModeration (/moderations)",
+        model = "text-moderation-latest",
+        moderationInput,
+        task = "Classify if the input text violates OpenAI's Content Policy",
+        output
+    )
 }
 
-suspend fun createImagesApiExample(openAI: OpenAIClient) {
-    val prompt = "three friends eating lunch by the pool"
-    val createImageRequest = CreateImageRequest(prompt = prompt)
-    val createImageResponse = openAI.createImage(createImageRequest)
+suspend fun createImageApiExample(openAI: OpenAIClient) {
+    val prompt = "Three friends eating lunch by the pool"
+    val createImageResponse = openAI.createImage(
+        CreateImageRequest(
+            prompt = prompt,
+            size = "256x256"
+        )
+    )
 
-    println("Calling the /images/generations API to create an image of $prompt...\nOutput:")
-    createImageResponse.data.forEach { println(it.url) }
-    println("=====================================================\n")
+    val output = createImageResponse.data.joinToString("\n") { it.url }
+
+    printOutput(
+        api = "CreateImage (/images/generations)",
+        model = "DALL-E",
+        prompt,
+        task = "Create an image given input",
+        output
+    )
+}
+
+suspend fun createImageEditApiExample(openAI: OpenAIClient) {
+    val image = "./images/taxi.png"
+    val prompt = "Make this image into black and white"
+    val createImageEditResponse = openAI.createImageEdit(
+        CreateImageEditRequest(
+            image = image,
+            prompt = prompt
+        )
+    )
+
+    val output = createImageEditResponse.data.joinToString("\n") { it.url }
+
+    printOutput(
+        api = "CreateImageEdit (/images/edits)",
+        model = "DALL-E",
+        prompt,
+        task = "Edit the given image with the input instruction",
+        output
+    )
+}
+
+private suspend fun callOpenAIApis(
+    vararg jobs: KSuspendFunction1<OpenAIClient, Unit>,
+    openAI: OpenAIClient
+): Long = runBlocking {
+    measureTimeMillis { jobs.map { job -> launch { job.invoke(openAI) } }.joinAll() }
+}
+
+private fun printOutput(api: String, model: String, input: String, task: String, output: String) {
+    println("Calling the $api API with the model $model...")
+    println("Input: $input\nTask: $task\nOutput:\n$output".trimEnd())
+    println("====================================================================================================\n")
 }

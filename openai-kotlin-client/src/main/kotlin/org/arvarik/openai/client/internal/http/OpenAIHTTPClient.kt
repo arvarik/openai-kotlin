@@ -1,4 +1,4 @@
-package org.arvarik.openai.client.http
+package org.arvarik.openai.client.internal.http
 
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -13,6 +13,7 @@ import io.ktor.client.plugins.logging.DEFAULT
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
+import io.ktor.client.request.forms.submitFormWithBinaryData
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.client.request.url
@@ -20,6 +21,7 @@ import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.ContentType
 import io.ktor.http.URLProtocol
+import io.ktor.http.content.PartData
 import io.ktor.http.contentType
 import io.ktor.http.isSuccess
 import io.ktor.serialization.kotlinx.KotlinxSerializationConverter
@@ -33,10 +35,24 @@ import org.arvarik.openai.client.exception.OpenAIServerException
 import org.arvarik.openai.core.api.OpenAIRequest
 import org.arvarik.openai.core.api.OpenAIResponse
 
-private const val OPENAI_URL: String = "api.openai.com"
-
 internal class OpenAIHTTPClient(config: OpenAIClientConfig) {
     private val httpClient = constructHttpClient(config)
+
+    suspend inline fun <reified T : OpenAIResponse> post(request: OpenAIRequest, endpoint: String): T {
+        return this.request(typeInfo<T>()) {
+            it.post {
+                url(path = endpoint)
+                setBody(request)
+                contentType(ContentType.Application.Json)
+            }.body()
+        }
+    }
+
+    suspend inline fun <reified T : OpenAIResponse> post(form: List<PartData>, endpoint: String): T {
+        return this.request(typeInfo<T>()) {
+            it.submitFormWithBinaryData(formData = form, url = endpoint)
+        }
+    }
 
     private suspend fun <T : Any> request(info: TypeInfo, block: suspend (HttpClient) -> HttpResponse): T {
         return try {
@@ -52,63 +68,58 @@ internal class OpenAIHTTPClient(config: OpenAIClientConfig) {
             throw OpenAIClientException(throwable = ex)
         }
     }
-    suspend inline fun <reified T : OpenAIResponse> post(request: OpenAIRequest, endpoint: String): T {
-        return this.request(typeInfo<T>()) {
-            it.post {
-                url(path = endpoint)
-                setBody(request)
-                contentType(ContentType.Application.Json)
-            }.body()
-        }
-    }
-}
 
-private fun constructHttpClient(config: OpenAIClientConfig): HttpClient {
-    return HttpClient(CIO) {
-        install(ContentNegotiation) {
-            register(ContentType.Application.Json, KotlinxSerializationConverter(JsonLenient))
-        }
-
-        install(Logging) {
-            logger = Logger.DEFAULT
-            level = LogLevel.HEADERS
-            filter { request ->
-                request.url.host.contains("ktor.io")
+    private fun constructHttpClient(config: OpenAIClientConfig): HttpClient {
+        return HttpClient(CIO) {
+            install(ContentNegotiation) {
+                register(ContentType.Application.Json, KotlinxSerializationConverter(JsonLenient))
             }
-        }
 
-        install(Auth) {
-            bearer {
-                loadTokens {
-                    BearerTokens(accessToken = config.token, refreshToken = "")
+            install(Logging) {
+                logger = Logger.DEFAULT
+                level = LogLevel.HEADERS
+                filter { request ->
+                    request.url.host.contains("ktor.io")
+                }
+            }
+
+            install(Auth) {
+                bearer {
+                    loadTokens {
+                        BearerTokens(accessToken = config.token, refreshToken = "")
+                    }
+                }
+            }
+
+            install(HttpTimeout) {
+                config.timeout?.connect?.let { connect ->
+                    connectTimeoutMillis = connect.toMillis()
+                }
+
+                config.timeout?.request?.let { request ->
+                    requestTimeoutMillis = request.toMillis()
+                }
+
+                config.timeout?.socket?.let { socket ->
+                    socketTimeoutMillis = socket.toMillis()
+                }
+            }
+
+            defaultRequest {
+                url {
+                    protocol = URLProtocol.HTTPS
+                    host = OPENAI_URL
                 }
             }
         }
+    }
 
-        install(HttpTimeout) {
-            config.timeout?.connect?.let { connect ->
-                connectTimeoutMillis = connect.toMillis()
-            }
+    companion object {
+        private const val OPENAI_URL: String = "api.openai.com"
 
-            config.timeout?.request?.let { request ->
-                requestTimeoutMillis = request.toMillis()
-            }
-
-            config.timeout?.socket?.let { socket ->
-                socketTimeoutMillis = socket.toMillis()
-            }
-        }
-
-        defaultRequest {
-            url {
-                protocol = URLProtocol.HTTPS
-                host = OPENAI_URL
-            }
+        private val JsonLenient = Json {
+            isLenient = true
+            ignoreUnknownKeys = true
         }
     }
-}
-
-internal val JsonLenient = Json {
-    isLenient = true
-    ignoreUnknownKeys = true
 }

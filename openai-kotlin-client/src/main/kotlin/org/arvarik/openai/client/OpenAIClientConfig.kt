@@ -7,11 +7,14 @@ import java.time.Duration
  *
  * @param token The API token to use for the client
  * @param timeout The request timeout, default is 30 seconds
+ * @param imagesFilepath The filepath of the directory containing images to be used for the Images APIs
  */
 data class OpenAIClientConfig(
     val token: String,
 
-    val timeout: HttpTimeout? = null
+    val timeout: HttpTimeout? = null,
+
+    val imagesFilepath: String? = null
 )
 
 /**

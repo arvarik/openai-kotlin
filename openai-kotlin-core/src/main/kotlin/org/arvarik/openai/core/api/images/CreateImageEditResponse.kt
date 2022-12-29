@@ -4,14 +4,14 @@ import kotlinx.serialization.Serializable
 import org.arvarik.openai.core.api.OpenAIResponse
 
 /**
- * Response object for the /images/generations endpoint
+ * Response object for the /images/edits endpoint
  *
- * Creates an image given a prompt
+ * Creates an edited or extended image given an original image and a prompt
  *
- * @see [Create Image API](https://beta.openai.com/docs/api-reference/images/create)
+ * @see [Create Image Edit API](https://beta.openai.com/docs/api-reference/images/create-edit)
  */
 @Serializable
-data class CreateImageResponse(
+data class CreateImageEditResponse(
     /**
      * The creation time in epoch seconds
      */
