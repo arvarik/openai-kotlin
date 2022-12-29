@@ -3,8 +3,6 @@ package org.arvarik.openai.core.api.retrieve
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.arvarik.openai.core.api.OpenAIResponse
-//import org.arvarik.openai.core.api.Usage
-//don't think I need this
 
 @Serializable
 data class CreateRetrieveResponse(
@@ -32,12 +30,12 @@ data class CreateRetrieveResponse(
     /**
      * Root model
      */
-    val root: String,
+    val root: String? = null,
 
     /**
      * Parent model
      */
-    val parent: String?
+    val parent: String? = null
     ) : OpenAIResponse
 
 @Serializable
@@ -101,7 +99,7 @@ data class Permission(
     /**
      * Group to the model
      */
-    val group: String?,
+    val group: String? = null,
 
     /**
      * Whether model is blocking
