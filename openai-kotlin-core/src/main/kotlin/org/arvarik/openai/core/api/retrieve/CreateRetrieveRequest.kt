@@ -6,7 +6,7 @@ import org.arvarik.openai.core.api.OpenAIRequest
 
 
 /**
- * Documentation: https://beta.openai.com/docs/api-reference/completions/models/retrieve
+ * Documentation: https://beta.openai.com/docs/api-reference/models/retrieve
  */
 
 @Serializable
