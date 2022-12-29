@@ -14,11 +14,7 @@ internal class OpenAIClientImpl(
 ) : OpenAIClient,
         Completions by CompletionsImpl(httpClient),
         Edits by EditsImpl(httpClient),
-        Models by RetrieveModelsImpl(httpClient)
-        Embeddings by EmbeddingsImpl(httpClient)
-
-    Completions by CompletionsImpl(httpClient),
-    Edits by EditsImpl(httpClient),
-    Images by ImagesImpl(httpClient),
-    Embeddings by EmbeddingsImpl(httpClient),
-    Moderations by ModerationsImpl(httpClient)
+        Models by RetrieveModelsImpl(httpClient),
+        Images by ImagesImpl(httpClient),
+        Embeddings by EmbeddingsImpl(httpClient),
+        Moderations by ModerationsImpl(httpClient)
