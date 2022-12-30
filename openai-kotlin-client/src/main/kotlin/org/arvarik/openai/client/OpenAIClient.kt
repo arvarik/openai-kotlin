@@ -3,6 +3,7 @@ package org.arvarik.openai.client
 import org.arvarik.openai.client.internal.impl.OpenAIClientImpl
 import org.arvarik.openai.core.api.completions.CreateCompletionRequest
 import org.arvarik.openai.core.api.completions.CreateCompletionResponse
+import org.arvarik.openai.core.api.models.ListModels.ListModelsResponse
 import org.arvarik.openai.core.api.edits.CreateEditRequest
 import org.arvarik.openai.core.api.edits.CreateEditResponse
 import org.arvarik.openai.core.api.embeddings.CreateEmbeddingsRequest
@@ -16,7 +17,7 @@ import org.arvarik.openai.core.api.images.CreateImageVariationResponse
 import org.arvarik.openai.core.api.moderations.CreateModerationRequest
 import org.arvarik.openai.core.api.moderations.CreateModerationResponse
 
-interface OpenAIClient : Completions, Edits, Images, Embeddings, Moderations // TODO: Rest of clients
+interface OpenAIClient : Completions, Models, Edits, Images, Embeddings, Moderations // TODO: Rest of clients
 
 interface Completions {
 
@@ -29,7 +30,16 @@ interface Completions {
     suspend fun createCompletion(request: CreateCompletionRequest): CreateCompletionResponse
 }
 
-interface Models
+interface Models {
+
+    /**
+     * Gets the currently available models, along with basic information about each such as the owner and availability, from the /models endpoint
+     *
+     * @return The generated list models response
+     */
+    suspend fun listModels(): ListModelsResponse
+
+}
 
 interface Edits {
 

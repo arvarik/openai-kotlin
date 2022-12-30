@@ -2,6 +2,7 @@ package org.arvarik.openai.client.internal.impl
 
 import okio.FileSystem
 import org.arvarik.openai.client.Completions
+import org.arvarik.openai.client.Models
 import org.arvarik.openai.client.Edits
 import org.arvarik.openai.client.Embeddings
 import org.arvarik.openai.client.Images
@@ -19,6 +20,7 @@ internal class OpenAIClientImpl(
     private val localFileSystem: LocalFileSystem = LocalFileSystem(config, fileSystem)
 ) : OpenAIClient,
     Completions by CompletionsImpl(httpClient),
+    Models by ModelsImpl(httpClient),
     Edits by EditsImpl(httpClient),
     Images by ImagesImpl(httpClient, localFileSystem),
     Embeddings by EmbeddingsImpl(httpClient),
