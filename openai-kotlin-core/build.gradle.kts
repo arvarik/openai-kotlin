@@ -1,5 +1,5 @@
 plugins {
-    id("org.jetbrains.kotlin.jvm") version "1.7.22"
+    id("org.jetbrains.kotlin.jvm") version "1.8.0"
     id("org.jetbrains.kotlin.plugin.serialization") version "1.7.22"
 }
 
@@ -7,7 +7,7 @@ repositories {
     mavenCentral()
 }
 
-val kotlinVersion = "1.7.22"
+val kotlinVersion = "1.8.0"
 val kotlinxSerializationVersion = "1.4.1"
 
 val kotestVersion = "5.5.4"
@@ -28,4 +28,8 @@ tasks.named<Test>("test") {
         junitXml.required.set(false)
     }
     systemProperty("gradle.build.dir", project.buildDir)
+}
+
+kotlin {
+    jvmToolchain(17)
 }

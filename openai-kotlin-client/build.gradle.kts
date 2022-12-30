@@ -1,6 +1,6 @@
 plugins {
-    id("org.jetbrains.kotlin.jvm") version "1.7.22"
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.7.22"
+    id("org.jetbrains.kotlin.jvm") version "1.8.0"
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.8.0"
 }
 
 repositories {
@@ -14,7 +14,7 @@ dependencies {
     api(project(":openai-kotlin-core"))
 
     // Jetbrains
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.7.22")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.8.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.4.1")
 
@@ -34,4 +34,8 @@ dependencies {
 
 tasks.named<Test>("test") {
     useJUnitPlatform()
+}
+
+kotlin {
+    jvmToolchain(17)
 }
