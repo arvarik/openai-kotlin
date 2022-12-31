@@ -29,7 +29,16 @@ interface Completions {
     suspend fun createCompletion(request: CreateCompletionRequest): CreateCompletionResponse
 }
 
-interface Models
+interface Models{
+
+    /**
+     * Retrieves information about a model
+     *
+     * @param request The given retrieve request object
+     * @return The generated retrieve response
+     */
+    suspend fun retrieveModel(request: CreateRetrieveResponse): CreateRetrieveResponse
+}
 
 interface Edits {
 
