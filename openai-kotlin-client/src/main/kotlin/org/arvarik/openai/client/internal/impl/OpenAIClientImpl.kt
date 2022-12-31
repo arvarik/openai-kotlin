@@ -22,4 +22,5 @@ internal class OpenAIClientImpl(
     Edits by EditsImpl(httpClient),
     Images by ImagesImpl(httpClient, localFileSystem),
     Embeddings by EmbeddingsImpl(httpClient),
+    Models by RetrieveImpl(httpClient),
     Moderations by ModerationsImpl(httpClient)
