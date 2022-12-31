@@ -15,8 +15,10 @@ import org.arvarik.openai.core.api.images.CreateImageVariationRequest
 import org.arvarik.openai.core.api.images.CreateImageVariationResponse
 import org.arvarik.openai.core.api.moderations.CreateModerationRequest
 import org.arvarik.openai.core.api.moderations.CreateModerationResponse
+import org.arvarik.openai.core.api.retrieve.CreateRetrieveRequest
+import org.arvarik.openai.core.api.retrieve.CreateRetrieveResponse
 
-interface OpenAIClient : Completions, Edits, Images, Embeddings, Moderations // TODO: Rest of clients
+interface OpenAIClient : Completions, Edits, Images, Embeddings, Moderations, Models// TODO: Rest of clients
 
 interface Completions {
 
