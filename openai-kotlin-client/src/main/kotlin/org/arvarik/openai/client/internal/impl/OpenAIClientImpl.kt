@@ -5,6 +5,7 @@ import org.arvarik.openai.client.Completions
 import org.arvarik.openai.client.Edits
 import org.arvarik.openai.client.Embeddings
 import org.arvarik.openai.client.Images
+import org.arvarik.openai.client.Models
 import org.arvarik.openai.client.Moderations
 import org.arvarik.openai.client.OpenAIClient
 import org.arvarik.openai.client.OpenAIClientConfig

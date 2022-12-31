@@ -39,7 +39,7 @@ interface Models{
      * @param request The given retrieve request object
      * @return The generated retrieve response
      */
-    suspend fun retrieveModel(request: CreateRetrieveResponse): CreateRetrieveResponse
+    suspend fun retrieveModel(request: CreateRetrieveRequest): CreateRetrieveResponse
 }
 
 interface Edits {
