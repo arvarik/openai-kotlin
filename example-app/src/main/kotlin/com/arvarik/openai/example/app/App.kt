@@ -15,7 +15,6 @@ import org.arvarik.openai.core.api.images.CreateImageRequest
 import org.arvarik.openai.core.api.images.CreateImageVariationRequest
 import org.arvarik.openai.core.api.moderations.CreateModerationRequest
 import org.arvarik.openai.core.api.retrieve.CreateRetrieveRequest
-import org.arvarik.openai.core.api.retrieve.CreateRetrieveResponse
 import java.time.Duration
 import kotlin.reflect.KSuspendFunction1
 import kotlin.system.measureTimeMillis
@@ -83,7 +82,6 @@ suspend fun retrieveModelApiExample(openAI: OpenAIClient) {
     println("parent: ${retrieveModel.parent}")
 
     println("=====================================================\n")
-
 }
 
 suspend fun completionsApiExample(openAI: OpenAIClient) {
