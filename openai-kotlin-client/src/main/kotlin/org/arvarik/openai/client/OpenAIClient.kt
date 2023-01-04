@@ -15,8 +15,9 @@ import org.arvarik.openai.core.api.images.CreateImageVariationRequest
 import org.arvarik.openai.core.api.images.CreateImageVariationResponse
 import org.arvarik.openai.core.api.moderations.CreateModerationRequest
 import org.arvarik.openai.core.api.moderations.CreateModerationResponse
-
-interface OpenAIClient : Completions, Edits, Images, Embeddings, Moderations // TODO: Rest of clients
+import org.arvarik.openai.core.api.retrieve.CreateRetrieveRequest
+import org.arvarik.openai.core.api.retrieve.CreateRetrieveResponse
+interface OpenAIClient : Completions, Edits, Images, Embeddings, Moderations, Models // TODO: Rest of clients
 
 interface Completions {
 
@@ -29,7 +30,16 @@ interface Completions {
     suspend fun createCompletion(request: CreateCompletionRequest): CreateCompletionResponse
 }
 
-interface Models
+interface Models {
+
+    /**
+     * Retrieves information about a model
+     *
+     * @param request The given retrieve request object
+     * @return The generated retrieve response
+     */
+    suspend fun retrieveModel(request: CreateRetrieveRequest): CreateRetrieveResponse
+}
 
 interface Edits {
 
