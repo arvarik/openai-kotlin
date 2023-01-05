@@ -20,6 +20,9 @@ dependencies {
     testImplementation("io.kotest:kotest-extensions-htmlreporter:$kotestVersion")
     testImplementation("io.kotest:kotest-extensions-junitxml:$kotestVersion")
     testImplementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinxSerializationVersion")
+
+    // Helps in comparing two json strings in unit tests.
+    testImplementation("org.skyscreamer:jsonassert:1.5.0")
 }
 
 tasks.named<Test>("test") {

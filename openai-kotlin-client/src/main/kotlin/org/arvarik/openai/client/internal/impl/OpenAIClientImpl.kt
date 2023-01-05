@@ -4,6 +4,7 @@ import okio.FileSystem
 import org.arvarik.openai.client.Completions
 import org.arvarik.openai.client.Edits
 import org.arvarik.openai.client.Embeddings
+import org.arvarik.openai.client.FineTunes
 import org.arvarik.openai.client.Images
 import org.arvarik.openai.client.Models
 import org.arvarik.openai.client.Moderations
@@ -24,4 +25,5 @@ internal class OpenAIClientImpl(
     Images by ImagesImpl(httpClient, localFileSystem),
     Embeddings by EmbeddingsImpl(httpClient),
     Models by RetrieveImpl(httpClient),
-    Moderations by ModerationsImpl(httpClient)
+    Moderations by ModerationsImpl(httpClient),
+    FineTunes by FineTunesImpl(httpClient)
