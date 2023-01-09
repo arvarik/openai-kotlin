@@ -1,10 +1,6 @@
 plugins {
-    id("org.jetbrains.kotlin.jvm") version "1.8.0"
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.7.22"
-}
-
-repositories {
-    mavenCentral()
+    kotlin("jvm") version "1.8.0"
+    kotlin("plugin.serialization") version "1.8.0"
 }
 
 val kotlinVersion = "1.8.0"
