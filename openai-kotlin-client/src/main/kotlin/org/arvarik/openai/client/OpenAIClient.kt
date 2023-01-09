@@ -7,6 +7,8 @@ import org.arvarik.openai.core.api.edits.CreateEditRequest
 import org.arvarik.openai.core.api.edits.CreateEditResponse
 import org.arvarik.openai.core.api.embeddings.CreateEmbeddingsRequest
 import org.arvarik.openai.core.api.embeddings.CreateEmbeddingsResponse
+import org.arvarik.openai.core.api.finetunes.CreateFineTuneRequest
+import org.arvarik.openai.core.api.finetunes.CreateFineTuneResponse
 import org.arvarik.openai.core.api.images.CreateImageEditRequest
 import org.arvarik.openai.core.api.images.CreateImageEditResponse
 import org.arvarik.openai.core.api.images.CreateImageRequest
@@ -17,7 +19,8 @@ import org.arvarik.openai.core.api.moderations.CreateModerationRequest
 import org.arvarik.openai.core.api.moderations.CreateModerationResponse
 import org.arvarik.openai.core.api.retrieve.CreateRetrieveRequest
 import org.arvarik.openai.core.api.retrieve.CreateRetrieveResponse
-interface OpenAIClient : Completions, Edits, Images, Embeddings, Moderations, Models // TODO: Rest of clients
+
+interface OpenAIClient : Completions, Edits, Images, Embeddings, Moderations, Models, FineTunes // TODO: Rest of clients
 
 interface Completions {
 
@@ -92,7 +95,16 @@ interface Embeddings {
 
 interface Files
 
-interface FineTunes
+interface FineTunes {
+
+    /**
+     * Creates a fine tune request.
+     *
+     * @param request The fine tune request.
+     * @return The fine tune request current information
+     */
+    suspend fun createFineTune(request: CreateFineTuneRequest): CreateFineTuneResponse
+}
 
 interface Moderations {
 

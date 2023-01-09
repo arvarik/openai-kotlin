@@ -7,6 +7,8 @@ import io.kotest.matchers.shouldBe
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
+import org.skyscreamer.jsonassert.JSONAssert
+import org.skyscreamer.jsonassert.JSONCompareMode
 
 /**
  * Common test class to assert the serialization of a data class using Behavior Driven Testing Style
@@ -30,7 +32,11 @@ open class DataClassSerializationCommonTest<T>(
         `when`("Data class instance is serialized") {
             val dataClassInstanceSerialized = Json.encodeToString(serializer, dataClassInstance)
             then("return correct serialization") {
-                dataClassInstanceSerialized shouldBe expectedSerializedString
+                JSONAssert.assertEquals(
+                    expectedSerializedString,
+                    dataClassInstanceSerialized,
+                    JSONCompareMode.NON_EXTENSIBLE
+                )
             }
 
             and("Data class instance string is deserialized") {
