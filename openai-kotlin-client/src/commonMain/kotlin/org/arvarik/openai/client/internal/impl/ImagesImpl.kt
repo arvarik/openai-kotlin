@@ -29,7 +29,7 @@ internal class ImagesImpl(
             appendPngImageInBytes("image", request.image)
             append(key = "prompt", value = request.prompt)
 
-            request.mask?.let { appendPngImageInBytes("key", it) }
+            request.mask?.let { appendPngImageInBytes("mask", it) }
             request.n?.let { append(key = "n", value = it) }
             request.size?.let { append(key = "size", value = it) }
             request.responseFormat?.let { append(key = "response_format", value = it) }

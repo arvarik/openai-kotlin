@@ -28,24 +28,24 @@ fun main() = runBlocking {
     val openAI = OpenAIClient(config)
 
     val time = callOpenAIApis(
-        // Completions API //
-        ::completionsApiExample,
-        // Edits API //
-        ::editsApiExample,
-        // Embeddings API //
-        ::embeddingsApiExample,
-        // Models APIs //
-        // (2) Retrieve Models
-        ::retrieveModelApiExample,
-        // Moderations API //
-        ::moderationsApiExample,
-        // Images APIs //
-        // (1) Create Image
-        ::createImageApiExample,
+//        // Completions API //
+//        ::completionsApiExample,
+//        // Edits API //
+//        ::editsApiExample,
+//        // Embeddings API //
+//        ::embeddingsApiExample,
+//        // Models APIs //
+//        // (2) Retrieve Models
+//        ::retrieveModelApiExample,
+//        // Moderations API //
+//        ::moderationsApiExample,
+//        // Images APIs //
+//        // (1) Create Image
+//        ::createImageApiExample,
         // (2) Create Image Edit
         ::createImageEditApiExample,
         // (3) Create Image Variation
-        ::createImageVariationApiExample,
+//        ::createImageVariationApiExample,
         openAI = openAI
     )
 
@@ -179,11 +179,13 @@ suspend fun createImageApiExample(openAI: OpenAIClient) {
 
 suspend fun createImageEditApiExample(openAI: OpenAIClient) {
     val image = "./images/taxi.png"
-    val prompt = "Make this image into black and white"
+    val mask = "./images/taxi_masked.png"
+    val prompt = "Change from yellow to blue"
     val createImageEditResponse = openAI.createImageEdit(
         CreateImageEditRequest(
             image = image,
-            prompt = prompt
+            prompt = prompt,
+            mask = mask
         )
     )
 
@@ -200,7 +202,11 @@ suspend fun createImageEditApiExample(openAI: OpenAIClient) {
 
 suspend fun createImageVariationApiExample(openAI: OpenAIClient) {
     val image = "./images/taxi.png"
-    val createImageVariationResponse = openAI.createImageVariation(CreateImageVariationRequest(image = image))
+    val createImageVariationResponse = openAI.createImageVariation(
+        CreateImageVariationRequest(
+            image = image
+        )
+    )
 
     val output = createImageVariationResponse.data.joinToString("\n") { it.url }
 

@@ -15,5 +15,5 @@ kotlin {
 }
 
 application {
-    mainClass.set("com.arvarik.openai.example.app.AppKt")
+    mainClass.set("com.arvarik.openai.example.jvm.AppKt")
 }
