@@ -10,6 +10,14 @@ val kotestVersion = "5.5.4"
 kotlin {
     jvm {
         jvmToolchain(17)
+
+        tasks.named<Test>("jvmTest") {
+            useJUnitPlatform()
+            reports {
+                junitXml.required.set(false)
+            }
+            systemProperty("gradle.build.dir", project.buildDir)
+        }
     }
     js(IR) {
         browser()
