@@ -11,7 +11,7 @@ kotlin {
         jvmToolchain(17)
     }
     js(IR) {
-        browser()
+        nodejs()
     }
     val hostOs = System.getProperty("os.name")
     val nativeTarget = when {
