@@ -4,17 +4,17 @@ import kotlinx.serialization.serializer
 import org.arvarik.openai.core.api.common.DataClassSerializationCommonTest
 
 val listModelsResponse = ListModelsResponse(
-    `object` = "list",
+    objectType = "list",
     data = listOf(
         Model(
             id = "babbage",
-            `object` = "model",
+            objectType = "model",
             created = 1649358449,
             ownedBy = "openai",
             permission = listOf(
                 Permission(
                     id = "modelperm-49FUp5v084tBB49tC4z8LPH5",
-                    `object` = "model_permission",
+                    objectType = "model_permission",
                     created = 1669085501,
                     allowCreateEngine = false,
                     allowSampling = true,

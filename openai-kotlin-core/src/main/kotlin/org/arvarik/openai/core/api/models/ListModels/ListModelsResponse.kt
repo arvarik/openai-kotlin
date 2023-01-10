@@ -16,7 +16,8 @@ data class ListModelsResponse(
     /**
      * The object type of the response
      */
-    val `object`: String,
+    @SerialName("object")
+    val objectType: String,
 
     /**
      * The data associated with each model
@@ -37,7 +38,8 @@ data class Model(
     /**
      * The object type of the model
      */
-    val `object`: String,
+    @SerialName("object")
+    val objectType: String,
 
     /**
      * The creation time in epoch seconds
@@ -79,7 +81,8 @@ data class Permission(
     /**
      * The object type of the permission
      */
-    val `object`: String,
+    @SerialName("object")
+    val objectType: String,
 
     /**
      * The creation time in epoch seconds

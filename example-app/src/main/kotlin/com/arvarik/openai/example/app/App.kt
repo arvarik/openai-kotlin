@@ -80,10 +80,10 @@ suspend fun listModelsApiExample(openAI: OpenAIClient) {
     val permission1 = model1.permission[0]
     val output = listOf(
         "id: ${model1.id}",
-        "object: ${model1.`object`}",
+        "object: ${model1.`objectType`}",
         "owned_by: ${model1.ownedBy}",
         "permission: id: ${permission1.id}",
-        "permission: object: ${permission1.`object`}",
+        "permission: object: ${permission1.`objectType`}",
         "permission: created: ${permission1.created}",
         "permission: allow_create_engine: ${permission1.allowCreateEngine}",
         "permission: allow_sampling: ${permission1.allowSampling}",
