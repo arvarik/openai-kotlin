@@ -3,7 +3,6 @@ package org.arvarik.openai.client
 import org.arvarik.openai.client.internal.impl.OpenAIClientImpl
 import org.arvarik.openai.core.api.completions.CreateCompletionRequest
 import org.arvarik.openai.core.api.completions.CreateCompletionResponse
-import org.arvarik.openai.core.api.models.ListModels.ListModelsResponse
 import org.arvarik.openai.core.api.edits.CreateEditRequest
 import org.arvarik.openai.core.api.edits.CreateEditResponse
 import org.arvarik.openai.core.api.embeddings.CreateEmbeddingsRequest
@@ -14,6 +13,7 @@ import org.arvarik.openai.core.api.images.CreateImageRequest
 import org.arvarik.openai.core.api.images.CreateImageResponse
 import org.arvarik.openai.core.api.images.CreateImageVariationRequest
 import org.arvarik.openai.core.api.images.CreateImageVariationResponse
+import org.arvarik.openai.core.api.models.ListModels.ListModelsResponse
 import org.arvarik.openai.core.api.moderations.CreateModerationRequest
 import org.arvarik.openai.core.api.moderations.CreateModerationResponse
 
@@ -38,7 +38,6 @@ interface Models {
      * @return The generated list models response
      */
     suspend fun listModels(): ListModelsResponse
-
 }
 
 interface Edits {

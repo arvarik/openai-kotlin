@@ -4,7 +4,6 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.arvarik.openai.core.api.OpenAIResponse
 
-
 /**
  * Response object for the /models endpoint
  *
@@ -41,6 +40,11 @@ data class Model(
     val `object`: String,
 
     /**
+     * The creation time in epoch seconds
+     */
+    val created: Long,
+
+    /**
      * The organization which owns the model
      */
     @SerialName("owned_by")
@@ -59,7 +63,7 @@ data class Model(
     /**
      * Parent model
      */
-    val parent: String?,
+    val parent: String? = null
 )
 
 /**
@@ -126,11 +130,11 @@ data class Permission(
     /**
      * The group associated with the model
      */
-    val group: String?,
+    val group: String? = null,
 
     /**
      * Whether the model is blocking
      */
     @SerialName("is_blocking")
-    val isBlocking: Boolean,
+    val isBlocking: Boolean
 )
