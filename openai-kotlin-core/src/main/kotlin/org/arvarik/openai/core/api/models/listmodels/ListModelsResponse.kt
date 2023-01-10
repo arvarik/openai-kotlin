@@ -1,4 +1,4 @@
-package org.arvarik.openai.core.api.models.ListModels
+package org.arvarik.openai.core.api.models.listmodels
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

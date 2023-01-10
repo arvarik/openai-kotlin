@@ -2,7 +2,7 @@ package org.arvarik.openai.client.internal.impl
 
 import org.arvarik.openai.client.Models
 import org.arvarik.openai.client.internal.http.OpenAIHTTPClient
-import org.arvarik.openai.core.api.models.ListModels.ListModelsResponse
+import org.arvarik.openai.core.api.models.listmodels.ListModelsResponse
 
 internal class ModelsImpl(private val httpClient: OpenAIHTTPClient) : Models {
 
