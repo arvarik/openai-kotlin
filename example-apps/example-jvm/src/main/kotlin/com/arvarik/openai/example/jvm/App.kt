@@ -1,4 +1,4 @@
-package com.arvarik.openai.example.app
+package com.arvarik.openai.example.jvm
 
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch

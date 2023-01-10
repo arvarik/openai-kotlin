@@ -16,6 +16,7 @@ subprojects {
     apply(plugin = "com.diffplug.spotless")
     spotless {
         kotlin {
+            target("**/*.kt")
             ktlint("0.47.1").setUseExperimental(true)
             endWithNewline()
         }
