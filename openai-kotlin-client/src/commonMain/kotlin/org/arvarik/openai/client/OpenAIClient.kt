@@ -15,10 +15,10 @@ import org.arvarik.openai.core.api.images.CreateImageRequest
 import org.arvarik.openai.core.api.images.CreateImageResponse
 import org.arvarik.openai.core.api.images.CreateImageVariationRequest
 import org.arvarik.openai.core.api.images.CreateImageVariationResponse
+import org.arvarik.openai.core.api.models.RetrieveModelRequest
+import org.arvarik.openai.core.api.models.RetrieveModelResponse
 import org.arvarik.openai.core.api.moderations.CreateModerationRequest
 import org.arvarik.openai.core.api.moderations.CreateModerationResponse
-import org.arvarik.openai.core.api.retrieve.CreateRetrieveModelRequest
-import org.arvarik.openai.core.api.retrieve.CreateRetrieveModelResponse
 
 interface OpenAIClient : Completions, Edits, Images, Embeddings, Moderations, Models, FineTunes // TODO: Rest of clients
 
@@ -41,7 +41,7 @@ interface Models {
      * @param request The given retrieve request object
      * @return The generated retrieve response
      */
-    suspend fun retrieveModel(request: CreateRetrieveModelRequest): CreateRetrieveModelResponse
+    suspend fun retrieveModel(request: RetrieveModelRequest): RetrieveModelResponse
 }
 
 interface Edits {

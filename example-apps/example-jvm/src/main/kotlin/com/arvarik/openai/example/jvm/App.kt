@@ -13,8 +13,8 @@ import org.arvarik.openai.core.api.embeddings.CreateEmbeddingsRequest
 import org.arvarik.openai.core.api.images.CreateImageEditRequest
 import org.arvarik.openai.core.api.images.CreateImageRequest
 import org.arvarik.openai.core.api.images.CreateImageVariationRequest
+import org.arvarik.openai.core.api.models.RetrieveModelRequest
 import org.arvarik.openai.core.api.moderations.CreateModerationRequest
-import org.arvarik.openai.core.api.retrieve.CreateRetrieveModelRequest
 import kotlin.reflect.KSuspendFunction1
 import kotlin.system.measureTimeMillis
 import kotlin.time.Duration.Companion.seconds
@@ -54,11 +54,11 @@ fun main() = runBlocking {
 
 suspend fun retrieveModelApiExample(openAI: OpenAIClient) {
     val model = "text-davinci-edit-001"
-    val createRetrieveModelRequest = CreateRetrieveModelRequest(
+    val retrieveModelRequest = RetrieveModelRequest(
         model = model
     )
 
-    val output = openAI.retrieveModel(createRetrieveModelRequest)
+    val output = openAI.retrieveModel(retrieveModelRequest)
 
     printOutput(
         "RetrieveModel (/models)",
