@@ -1,11 +1,18 @@
-package org.arvarik.openai.core.api.retrieve
+package org.arvarik.openai.core.api.models
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.arvarik.openai.core.api.OpenAIResponse
 
+/**
+ * Response object for the /models endpoint
+ *
+ * Retrieves model metadata
+ *
+ * @see [Retrieve Model API](]https://beta.openai.com/docs/api-reference/models/retrieve)
+ */
 @Serializable
-data class CreateRetrieveModelResponse(
+data class RetrieveModelResponse(
     /**
      * The id associated with the completion
      */

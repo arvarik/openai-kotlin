@@ -2,17 +2,18 @@ package org.arvarik.openai.core.api.retrieve
 
 import kotlinx.serialization.serializer
 import org.arvarik.openai.core.api.common.DataClassSerializationCommonTest
+import org.arvarik.openai.core.api.models.RetrieveModelRequest
 
-val createRetrieveModelRequest = CreateRetrieveModelRequest(
+val retrieveModelRequest = RetrieveModelRequest(
     model = "text-ada-001"
 )
 
 /**
- * Test fixture for [CreateRetrieveModelRequest]
+ * Test fixture for [RetrieveModelRequest]
  */
-class CreateRetrieveRequestTest : DataClassSerializationCommonTest<CreateRetrieveModelRequest>(
+class CreateRetrieveRequestTest : DataClassSerializationCommonTest<RetrieveModelRequest>(
     serializer(),
-    createRetrieveModelRequest,
+    retrieveModelRequest,
     expectedSerializedString = """{"model":"text-ada-001"}""",
     invalidSerializedString = """{"models":text-ada-001}"""
 )
