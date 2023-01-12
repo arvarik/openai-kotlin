@@ -3,6 +3,8 @@ plugins {
     kotlin("plugin.serialization") version "1.8.0"
 }
 
+version = "0.0.1"
+
 val ktorVersion = "2.2.1"
 val okioVersion = "3.2.0"
 
