@@ -3,6 +3,8 @@ plugins {
     kotlin("plugin.serialization") version "1.8.0"
 }
 
+version = "0.0.1"
+
 val kotlinVersion = "1.8.0"
 val kotlinxSerializationVersion = "1.4.1"
 val kotestVersion = "5.5.4"
