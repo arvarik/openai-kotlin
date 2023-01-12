@@ -26,7 +26,7 @@ subprojects {
 
 configure(listOf(project(":openai-kotlin-core"), project(":openai-kotlin-client"))) {
     apply(plugin = "maven-publish")
-    group = "com.arvarik.openai-kotlin"
+    group = "org.arvarik.openai-kotlin"
 
     publishing {
         repositories {
