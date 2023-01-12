@@ -14,6 +14,7 @@ import org.arvarik.openai.core.api.images.CreateImageEditRequest
 import org.arvarik.openai.core.api.images.CreateImageRequest
 import org.arvarik.openai.core.api.images.CreateImageVariationRequest
 import org.arvarik.openai.core.api.moderations.CreateModerationRequest
+import org.arvarik.openai.core.api.retrieve.CreateRetrieveRequest
 import java.time.Duration
 import kotlin.reflect.KSuspendFunction1
 import kotlin.system.measureTimeMillis
@@ -36,6 +37,9 @@ fun main() = runBlocking {
         ::editsApiExample,
         // Embeddings API //
         ::embeddingsApiExample,
+        // Models APIs //
+        // (2) Retrieve Models
+        ::retrieveModelApiExample,
         // Moderations API //
         ::moderationsApiExample,
         // Images APIs //
@@ -49,6 +53,38 @@ fun main() = runBlocking {
     )
 
     println("Finished example-app OpenAI API executions in ${time}ms")
+}
+
+suspend fun retrieveModelApiExample(openAI: OpenAIClient) {
+    val model = "text-davinci-edit-001"
+    val createRetrieveRequest = CreateRetrieveRequest(
+        model = model
+    )
+
+    println("Calling retrieve models API")
+    val retrieveModel = openAI.retrieveModel(createRetrieveRequest)
+    println("id: ${retrieveModel.id}")
+    println("object: ${retrieveModel.`object`}")
+    println("owned_by: ${retrieveModel.ownedBy}")
+
+    val permissionRetrieveModel = retrieveModel.permission[0] // printing first permission object
+    println("permission: id: ${permissionRetrieveModel.id}")
+    println("permission: object: ${permissionRetrieveModel.`object`}")
+    println("permission: created: ${permissionRetrieveModel.created}")
+    println("permission: allow_create_engine: ${permissionRetrieveModel.allowCreateEngine}")
+    println("permission: allow_sampling: ${permissionRetrieveModel.allowSampling}")
+    println("permission: allow_logprobs: ${permissionRetrieveModel.allowLogprobs}")
+    println("permission: allow_search_indices: ${permissionRetrieveModel.allowSearchIndices}")
+    println("permission: allow_view: ${permissionRetrieveModel.allowView}")
+    println("permission: allow_fine_tuning: ${permissionRetrieveModel.allowFineTuning}")
+    println("permission: organization: ${permissionRetrieveModel.organization}")
+    println("permission: group: ${permissionRetrieveModel.group}")
+    println("permission: is_blocking: ${permissionRetrieveModel.isBlocking}")
+
+    println("root: ${retrieveModel.root}")
+    println("parent: ${retrieveModel.parent}")
+
+    println("=====================================================\n")
 }
 
 suspend fun completionsApiExample(openAI: OpenAIClient) {

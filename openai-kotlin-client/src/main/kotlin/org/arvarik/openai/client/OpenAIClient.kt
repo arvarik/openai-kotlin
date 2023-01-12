@@ -16,6 +16,8 @@ import org.arvarik.openai.core.api.images.CreateImageVariationResponse
 import org.arvarik.openai.core.api.models.listmodels.ListModelsResponse
 import org.arvarik.openai.core.api.moderations.CreateModerationRequest
 import org.arvarik.openai.core.api.moderations.CreateModerationResponse
+import org.arvarik.openai.core.api.retrieve.CreateRetrieveRequest
+import org.arvarik.openai.core.api.retrieve.CreateRetrieveResponse
 
 interface OpenAIClient : Completions, Models, Edits, Images, Embeddings, Moderations // TODO: Rest of clients
 
@@ -38,6 +40,13 @@ interface Models {
      * @return The generated list models response
      */
     suspend fun listModels(): ListModelsResponse
+
+     /** Retrieves information about a model
+     *
+     * @param request The given retrieve request object
+     * @return The generated retrieve response
+     */
+    suspend fun retrieveModel(request: CreateRetrieveRequest): CreateRetrieveResponse
 }
 
 interface Edits {
@@ -69,7 +78,7 @@ interface Images {
      */
     suspend fun createImageEdit(request: CreateImageEditRequest): CreateImageEditResponse
 
-    /**
+    /*
      * Creates a variation of a given image
      *
      * @param request The given create image variation request
