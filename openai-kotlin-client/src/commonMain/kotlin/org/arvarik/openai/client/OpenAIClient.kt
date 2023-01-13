@@ -15,6 +15,7 @@ import org.arvarik.openai.core.api.images.CreateImageRequest
 import org.arvarik.openai.core.api.images.CreateImageResponse
 import org.arvarik.openai.core.api.images.CreateImageVariationRequest
 import org.arvarik.openai.core.api.images.CreateImageVariationResponse
+import org.arvarik.openai.core.api.models.ListModelsResponse
 import org.arvarik.openai.core.api.models.RetrieveModelRequest
 import org.arvarik.openai.core.api.models.RetrieveModelResponse
 import org.arvarik.openai.core.api.moderations.CreateModerationRequest
@@ -36,7 +37,17 @@ interface Completions {
 interface Models {
 
     /**
+     * Gets the currently available models, along with basic information about each such as the owner and availability, from the /models endpoint
+     *
+     *
+     * @return The generated list models response
+     */
+    suspend fun listModels(): ListModelsResponse
+
+    /**
      * Retrieves information about a model
+     *
+     *
      *
      * @param request The given retrieve request object
      * @return The generated retrieve response
