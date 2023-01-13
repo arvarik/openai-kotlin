@@ -37,7 +37,7 @@ data class RetrieveModelResponse(
     /**
      * Permissions associated with the model
      */
-    val permission: List<Permission>,
+    val permission: List<ListPermission>,
 
     /**
      * Root model
@@ -51,7 +51,7 @@ data class RetrieveModelResponse(
 ) : OpenAIResponse
 
 @Serializable
-data class Permission(
+data class ListPermission(
     /**
      * id associated with the model
      */
