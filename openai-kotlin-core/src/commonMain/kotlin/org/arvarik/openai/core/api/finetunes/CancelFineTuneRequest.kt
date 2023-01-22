@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 import org.arvarik.openai.core.api.OpenAIRequest
 
 /**
- * Request object for the cancel fine-tune <a href="https://beta.openai.com/docs/api-reference/fine-tunes/cancel"> API </a>.
+ * Request object for the cancel fine-tune @see [API](https://beta.openai.com/docs/api-reference/fine-tunes/cancel)
  */
 @Serializable
 data class CancelFineTuneRequest(
