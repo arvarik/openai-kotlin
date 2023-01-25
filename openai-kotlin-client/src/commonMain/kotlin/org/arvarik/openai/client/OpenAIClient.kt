@@ -7,6 +7,8 @@ import org.arvarik.openai.core.api.edits.CreateEditRequest
 import org.arvarik.openai.core.api.edits.CreateEditResponse
 import org.arvarik.openai.core.api.embeddings.CreateEmbeddingsRequest
 import org.arvarik.openai.core.api.embeddings.CreateEmbeddingsResponse
+import org.arvarik.openai.core.api.finetunes.CancelFineTuneRequest
+import org.arvarik.openai.core.api.finetunes.CancelFineTuneResponse
 import org.arvarik.openai.core.api.finetunes.CreateFineTuneRequest
 import org.arvarik.openai.core.api.finetunes.CreateFineTuneResponse
 import org.arvarik.openai.core.api.images.CreateImageEditRequest
@@ -104,6 +106,14 @@ interface FineTunes {
      * @return The fine tune request current information
      */
     suspend fun createFineTune(request: CreateFineTuneRequest): CreateFineTuneResponse
+
+    /**
+     * Cancels a fine tune request.
+     *
+     * @param request The cancel fine tune request.
+     * @return The fine tune information after the cancellation request.
+     */
+    suspend fun cancelFineTune(request: CancelFineTuneRequest): CancelFineTuneResponse
 }
 
 interface Moderations {
