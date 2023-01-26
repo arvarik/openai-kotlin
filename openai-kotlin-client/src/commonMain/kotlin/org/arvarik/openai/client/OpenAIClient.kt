@@ -9,8 +9,10 @@ import org.arvarik.openai.core.api.embeddings.CreateEmbeddingsRequest
 import org.arvarik.openai.core.api.embeddings.CreateEmbeddingsResponse
 import org.arvarik.openai.core.api.finetunes.CancelFineTuneRequest
 import org.arvarik.openai.core.api.finetunes.CancelFineTuneResponse
+import org.arvarik.openai.core.api.finetunes.FineTune
 import org.arvarik.openai.core.api.finetunes.CreateFineTuneRequest
 import org.arvarik.openai.core.api.finetunes.CreateFineTuneResponse
+import org.arvarik.openai.core.api.finetunes.ListFineTunesResponse
 import org.arvarik.openai.core.api.images.CreateImageEditRequest
 import org.arvarik.openai.core.api.images.CreateImageEditResponse
 import org.arvarik.openai.core.api.images.CreateImageRequest
@@ -114,6 +116,11 @@ interface FineTunes {
      * @return The fine tune information after the cancellation request.
      */
     suspend fun cancelFineTune(request: CancelFineTuneRequest): CancelFineTuneResponse
+
+    /**
+     * @return List of fine-tunes requests.
+     */
+    suspend fun listFineTunes(): ListFineTunesResponse
 }
 
 interface Moderations {
