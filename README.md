@@ -1,4 +1,4 @@
-# OpenAI Kotlin Client
+# OpenAI Kotlin Client (WIP)
 A kotlin client for OpenAI APIs to quickly insert into your Kotlin JVM apps
 
 ## Setup
