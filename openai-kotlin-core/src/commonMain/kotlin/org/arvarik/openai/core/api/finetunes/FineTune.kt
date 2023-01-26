@@ -83,5 +83,5 @@ data class FineTune(
      * Request update at epoch date.
      */
     @SerialName("updated_at")
-    val updatedAt: Long,
+    val updatedAt: Long
 ) : OpenAIResponse

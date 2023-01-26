@@ -4,7 +4,6 @@ import org.arvarik.openai.client.FineTunes
 import org.arvarik.openai.client.internal.http.OpenAIHTTPClient
 import org.arvarik.openai.core.api.finetunes.CancelFineTuneRequest
 import org.arvarik.openai.core.api.finetunes.CancelFineTuneResponse
-import org.arvarik.openai.core.api.finetunes.FineTune
 import org.arvarik.openai.core.api.finetunes.CreateFineTuneRequest
 import org.arvarik.openai.core.api.finetunes.CreateFineTuneResponse
 import org.arvarik.openai.core.api.finetunes.ListFineTunesResponse

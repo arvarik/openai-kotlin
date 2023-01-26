@@ -9,7 +9,6 @@ import org.arvarik.openai.core.api.embeddings.CreateEmbeddingsRequest
 import org.arvarik.openai.core.api.embeddings.CreateEmbeddingsResponse
 import org.arvarik.openai.core.api.finetunes.CancelFineTuneRequest
 import org.arvarik.openai.core.api.finetunes.CancelFineTuneResponse
-import org.arvarik.openai.core.api.finetunes.FineTune
 import org.arvarik.openai.core.api.finetunes.CreateFineTuneRequest
 import org.arvarik.openai.core.api.finetunes.CreateFineTuneResponse
 import org.arvarik.openai.core.api.finetunes.ListFineTunesResponse

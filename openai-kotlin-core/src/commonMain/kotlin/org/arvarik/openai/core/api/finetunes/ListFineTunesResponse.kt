@@ -20,5 +20,5 @@ data class ListFineTunesResponse(
     /**
      * List of fine-tunes.
      */
-    val data: List<FineTune> = listOf(),
+    val data: List<FineTune> = listOf()
 ) : OpenAIResponse

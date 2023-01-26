@@ -46,6 +46,7 @@ private val listFineTunesResponse = ListFineTunesResponse(
     objectType = "list",
     data = listOf(fineTune)
 )
+
 /**
  * Test fixture for [ListFineTunesResponse].
  */
