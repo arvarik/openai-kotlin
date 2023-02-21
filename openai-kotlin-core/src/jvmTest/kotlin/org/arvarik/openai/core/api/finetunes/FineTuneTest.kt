@@ -5,7 +5,7 @@ import org.arvarik.openai.core.api.EventLog
 import org.arvarik.openai.core.api.common.DataClassSerializationCommonTest
 import org.arvarik.openai.core.api.files.File
 
-private val cancelFineTuneResponse = CancelFineTuneResponse(
+private val fineTune = FineTune(
     id = "ft-AF1WoRqd3aJAHsqc9NY7iL8F",
     objectType = "fine-tune",
     model = "curie",
@@ -43,11 +43,11 @@ private val cancelFineTuneResponse = CancelFineTuneResponse(
 )
 
 /**
- * Test fixture for [CancelFineTuneResponse].
+ * Test fixture for [FineTune].
  */
-class CancelFineTuneResponseTest : DataClassSerializationCommonTest<CancelFineTuneResponse>(
+class FineTuneTest : DataClassSerializationCommonTest<FineTune>(
     serializer(),
-    cancelFineTuneResponse,
+    fineTune,
     expectedSerializedString = """
     {
         "id": "ft-AF1WoRqd3aJAHsqc9NY7iL8F",

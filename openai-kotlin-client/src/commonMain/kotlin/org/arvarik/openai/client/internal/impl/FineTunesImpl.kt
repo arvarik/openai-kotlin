@@ -6,6 +6,7 @@ import org.arvarik.openai.core.api.finetunes.CancelFineTuneRequest
 import org.arvarik.openai.core.api.finetunes.CancelFineTuneResponse
 import org.arvarik.openai.core.api.finetunes.CreateFineTuneRequest
 import org.arvarik.openai.core.api.finetunes.CreateFineTuneResponse
+import org.arvarik.openai.core.api.finetunes.ListFineTunesResponse
 
 internal class FineTunesImpl(private val httpClient: OpenAIHTTPClient) : FineTunes {
     override suspend fun createFineTune(request: CreateFineTuneRequest): CreateFineTuneResponse {
@@ -14,6 +15,10 @@ internal class FineTunesImpl(private val httpClient: OpenAIHTTPClient) : FineTun
 
     override suspend fun cancelFineTune(request: CancelFineTuneRequest): CancelFineTuneResponse {
         return httpClient.post(request, "$FineTunesEndpoint/${request.fineTuneId}/cancel")
+    }
+
+    override suspend fun listFineTunes(): ListFineTunesResponse {
+        return httpClient.get(FineTunesEndpoint)
     }
 
     companion object {
