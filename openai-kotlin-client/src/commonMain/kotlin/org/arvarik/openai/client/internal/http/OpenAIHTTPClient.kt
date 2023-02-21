@@ -12,6 +12,7 @@ import io.ktor.client.plugins.logging.DEFAULT
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
+import io.ktor.client.request.delete
 import io.ktor.client.request.forms.submitFormWithBinaryData
 import io.ktor.client.request.get
 import io.ktor.client.request.post
@@ -38,7 +39,7 @@ import org.arvarik.openai.core.api.OpenAIResponse
 internal class OpenAIHTTPClient(config: OpenAIClientConfig) {
     private val httpClient = constructHttpClient(config)
 
-    suspend inline fun <reified T : OpenAIResponse> post(request: OpenAIRequest, endpoint: String): T {
+    suspend inline fun <reified T : OpenAIResponse> post(request: OpenAIRequest?, endpoint: String): T {
         return this.request(typeInfo<T>()) {
             it.post {
                 url(path = endpoint)
@@ -51,6 +52,15 @@ internal class OpenAIHTTPClient(config: OpenAIClientConfig) {
     suspend inline fun <reified T : OpenAIResponse> get(endpoint: String): T {
         return this.request(typeInfo<T>()) {
             it.get {
+                url(path = endpoint)
+                contentType(ContentType.Application.Json)
+            }.body()
+        }
+    }
+
+    suspend inline fun <reified T : OpenAIResponse> delete(endpoint: String): T {
+        return this.request(typeInfo<T>()) {
+            it.delete {
                 url(path = endpoint)
                 contentType(ContentType.Application.Json)
             }.body()
