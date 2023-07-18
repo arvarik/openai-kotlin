@@ -37,13 +37,14 @@ fun main() = runBlocking {
 //        // Models APIs //
 //        // (2) Retrieve Models
 //        ::retrieveModelApiExample,
+        ::listModelsApiExample,
 //        // Moderations API //
 //        ::moderationsApiExample,
 //        // Images APIs //
 //        // (1) Create Image
 //        ::createImageApiExample,
         // (2) Create Image Edit
-        ::createImageEditApiExample,
+//        ::createImageEditApiExample,
         // (3) Create Image Variation
 //        ::createImageVariationApiExample,
         openAI = openAI
@@ -66,6 +67,39 @@ suspend fun retrieveModelApiExample(openAI: OpenAIClient) {
         "<no prompt used>",
         "Retrieve metadata for the $model model",
         output.toString()
+    )
+}
+
+suspend fun listModelsApiExample(openAI: OpenAIClient) {
+    val listModelsResponse = openAI.listModels()
+    val model1 = listModelsResponse.data[0]
+    val permission1 = model1.permission[0]
+    val output = listOf(
+        "id: ${model1.id}",
+        "object: ${model1.`object`}",
+        "owned_by: ${model1.ownedBy}",
+        "permission: id: ${permission1.id}",
+        "permission: object: ${permission1.`object`}",
+        "permission: created: ${permission1.created}",
+        "permission: allow_create_engine: ${permission1.allowCreateEngine}",
+        "permission: allow_sampling: ${permission1.allowSampling}",
+        "permission: allow_logprobs: ${permission1.allowLogprobs}",
+        "permission: allow_search_indices: ${permission1.allowSearchIndices}",
+        "permission: allow_view: ${permission1.allowView}",
+        "permission: allow_fine_tuning: ${permission1.allowFineTuning}",
+        "permission: organization: ${permission1.organization}",
+        "permission: group: ${permission1.group}",
+        "permission: is_blocking: ${permission1.isBlocking}",
+        "root: ${model1.root}",
+        "parent: ${model1.parent}"
+    ).joinToString("\n")
+
+    printOutput(
+        "ListModels (/models)",
+        "N/A (lists all models)",
+        "N/A (lists all models)",
+        "List currently available models, along with basic information about each one such as the owner and availability. For this example, we just show data associated with the first model in the response",
+        output
     )
 }
 
