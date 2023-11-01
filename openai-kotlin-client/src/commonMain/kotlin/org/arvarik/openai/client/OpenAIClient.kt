@@ -7,8 +7,13 @@ import org.arvarik.openai.core.api.edits.CreateEditRequest
 import org.arvarik.openai.core.api.edits.CreateEditResponse
 import org.arvarik.openai.core.api.embeddings.CreateEmbeddingsRequest
 import org.arvarik.openai.core.api.embeddings.CreateEmbeddingsResponse
+import org.arvarik.openai.core.api.finetunes.CancelFineTuneRequest
+import org.arvarik.openai.core.api.finetunes.CancelFineTuneResponse
 import org.arvarik.openai.core.api.finetunes.CreateFineTuneRequest
 import org.arvarik.openai.core.api.finetunes.CreateFineTuneResponse
+import org.arvarik.openai.core.api.finetunes.DeleteFineTuneRequest
+import org.arvarik.openai.core.api.finetunes.DeleteFineTuneResponse
+import org.arvarik.openai.core.api.finetunes.ListFineTunesResponse
 import org.arvarik.openai.core.api.images.CreateImageEditRequest
 import org.arvarik.openai.core.api.images.CreateImageEditResponse
 import org.arvarik.openai.core.api.images.CreateImageRequest
@@ -98,6 +103,27 @@ interface FineTunes {
      * @return The fine tune request current information
      */
     suspend fun createFineTune(request: CreateFineTuneRequest): CreateFineTuneResponse
+
+    /**
+     * Cancels a fine tune request.
+     *
+     * @param request The cancel fine tune request.
+     * @return The fine tune information after the cancellation request.
+     */
+    suspend fun cancelFineTune(request: CancelFineTuneRequest): CancelFineTuneResponse
+
+    /**
+     * @return List of fine-tunes requests.
+     */
+    suspend fun listFineTunes(): ListFineTunesResponse
+
+    /**
+     * Deletes a fine-tune model.
+     *
+     * @param request the Delete request.
+     * @return The deletion request status.
+     */
+    suspend fun deleteFineTuneModel(request: DeleteFineTuneRequest): DeleteFineTuneResponse
 }
 
 interface Moderations {
