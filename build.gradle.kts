@@ -1,11 +1,13 @@
 plugins {
-    kotlin("jvm") version "1.8.0"
-    id("com.diffplug.spotless") version "6.12.0"
+    kotlin("jvm")
+    id("com.diffplug.spotless") version "6.22.0"
     `maven-publish`
 }
 
 val GITHUB_USER: String? by project
 val GITHUB_TOKEN: String? by project
+
+val kotlinVersion: String by project
 
 allprojects {
     repositories {
@@ -17,8 +19,8 @@ subprojects {
     apply(plugin = "com.diffplug.spotless")
     spotless {
         kotlin {
+            ktlint("1.0.1")
             target("**/*.kt")
-            ktlint("0.47.1").setUseExperimental(true)
             endWithNewline()
         }
     }

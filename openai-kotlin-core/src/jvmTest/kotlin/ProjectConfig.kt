@@ -7,11 +7,12 @@ import io.kotest.extensions.junitxml.JunitXmlReporter
 class ProjectConfig : AbstractProjectConfig() {
     override val specExecutionOrder = SpecExecutionOrder.Annotated
 
-    override fun extensions(): List<Extension> = listOf(
-        JunitXmlReporter(
-            includeContainers = false,
-            useTestPathAsName = true
-        ),
-        HtmlReporter()
-    )
+    override fun extensions(): List<Extension> =
+        listOf(
+            JunitXmlReporter(
+                includeContainers = false,
+                useTestPathAsName = true,
+            ),
+            HtmlReporter(),
+        )
 }

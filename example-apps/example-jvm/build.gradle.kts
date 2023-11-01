@@ -1,13 +1,15 @@
 plugins {
-    kotlin("jvm") version "1.8.0"
+    kotlin("jvm")
     application
 }
+
+val kotlinVersion: String by project
 
 dependencies {
     api(project(":openai-kotlin-client"))
 
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.8.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
 }
 
 kotlin {

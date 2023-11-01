@@ -5,7 +5,7 @@ package org.arvarik.openai.client.exception
  */
 class OpenAIClientException(
     message: String? = null,
-    throwable: Throwable? = null
+    throwable: Throwable? = null,
 ) : RuntimeException(message, throwable)
 
 /**
@@ -13,5 +13,5 @@ class OpenAIClientException(
  */
 class OpenAIServerException(
     status: Int,
-    body: String
+    body: String,
 ) : RuntimeException("$status: $body")

@@ -13,6 +13,5 @@ data class CancelFineTuneRequest(
      * The ID of the fine-tune request that will be cancelled.
      */
     @SerialName("fine_tune_id")
-    val fineTuneId: String
-
+    val fineTuneId: String,
 ) : OpenAIRequest

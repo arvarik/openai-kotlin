@@ -28,7 +28,6 @@ import org.arvarik.openai.core.api.moderations.CreateModerationResponse
 interface OpenAIClient : Completions, Edits, Images, Embeddings, Moderations, Models, FineTunes // TODO: Rest of clients
 
 interface Completions {
-
     /**
      * Creates a completion request to the GPT-3 /completions endpoint
      *
@@ -39,7 +38,6 @@ interface Completions {
 }
 
 interface Models {
-
     /**
      * Retrieves information about a model
      *
@@ -50,7 +48,6 @@ interface Models {
 }
 
 interface Edits {
-
     /**
      * Creates an edit request to the GPT-3 /edits endpoint
      *
@@ -61,7 +58,6 @@ interface Edits {
 }
 
 interface Images {
-
     /**
      * Creates an image given a prompt
      *
@@ -88,7 +84,6 @@ interface Images {
 }
 
 interface Embeddings {
-
     /**
      * Creates an embedding vector representing the input text
      *
@@ -101,7 +96,6 @@ interface Embeddings {
 interface Files
 
 interface FineTunes {
-
     /**
      * Creates a fine tune request.
      *
@@ -133,7 +127,6 @@ interface FineTunes {
 }
 
 interface Moderations {
-
     /**
      * Classifies if text violates OpenAI's Content Policy
      *

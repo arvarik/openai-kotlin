@@ -3,9 +3,10 @@ package org.arvarik.openai.core.api.finetunes
 import kotlinx.serialization.serializer
 import org.arvarik.openai.core.api.common.DataClassSerializationCommonTest
 
-private val deleteFineTuneRequest = DeleteFineTuneRequest(
-    modelId = "model_id"
-)
+private val deleteFineTuneRequest =
+    DeleteFineTuneRequest(
+        modelId = "model_id",
+    )
 
 /**
  * Test fixture for [DeleteFineTuneRequest].
@@ -13,14 +14,16 @@ private val deleteFineTuneRequest = DeleteFineTuneRequest(
 class DeleteFineTuneRequestTest : DataClassSerializationCommonTest<DeleteFineTuneRequest>(
     serializer(),
     deleteFineTuneRequest,
-    expectedSerializedString = """
+    expectedSerializedString =
+        """
         {
             "model": "model_id"
         }
-    """.trimIndent(),
-    invalidSerializedString = """
+        """.trimIndent(),
+    invalidSerializedString =
+        """
         {
             "id": "model id"
         }
-    """.trimIndent()
+        """.trimIndent(),
 )

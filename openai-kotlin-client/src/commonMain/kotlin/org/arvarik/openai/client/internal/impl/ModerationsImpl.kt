@@ -6,12 +6,11 @@ import org.arvarik.openai.core.api.moderations.CreateModerationRequest
 import org.arvarik.openai.core.api.moderations.CreateModerationResponse
 
 internal class ModerationsImpl(private val httpClient: OpenAIHTTPClient) : Moderations {
-
     override suspend fun createModeration(request: CreateModerationRequest): CreateModerationResponse {
-        return httpClient.post(request, ModerationsEndpoint)
+        return httpClient.post(request, MODERATIONS_ENDPOINT)
     }
 
     companion object {
-        private const val ModerationsEndpoint = "v1/moderations"
+        private const val MODERATIONS_ENDPOINT = "v1/moderations"
     }
 }

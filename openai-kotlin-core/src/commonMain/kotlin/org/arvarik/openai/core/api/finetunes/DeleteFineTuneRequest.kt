@@ -13,6 +13,5 @@ data class DeleteFineTuneRequest(
      * The ID of the fine-tune model to be deleted
      */
     @SerialName("model")
-    val modelId: String
-
+    val modelId: String,
 ) : OpenAIRequest

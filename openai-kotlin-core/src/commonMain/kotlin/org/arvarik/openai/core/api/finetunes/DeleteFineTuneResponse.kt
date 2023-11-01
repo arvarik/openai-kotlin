@@ -14,16 +14,13 @@ data class DeleteFineTuneResponse(
      */
     @SerialName("id")
     val modelId: String,
-
     /**
      * The type of this object.
      */
     @SerialName("object")
     val objectType: String,
-
     /**
      * Boolean that indicate if the deletion succeeded or not.
      */
-    val deleted: Boolean
-
+    val deleted: Boolean,
 ) : OpenAIResponse

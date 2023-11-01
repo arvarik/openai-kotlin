@@ -16,9 +16,8 @@ data class ListFineTunesResponse(
      */
     @SerialName("object")
     val objectType: String,
-
     /**
      * List of fine-tunes.
      */
-    val data: List<FineTune> = listOf()
+    val data: List<FineTune> = listOf(),
 ) : OpenAIResponse

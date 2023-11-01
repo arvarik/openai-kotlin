@@ -9,18 +9,19 @@ import io.kotest.matchers.shouldBe
 class ModelsTest : BehaviorSpec({
 
     given("gpt-3 model enum values") {
-        val gpt3Models = GPT3Model.values()
+        val gpt3Models = GPT3Model.entries.toTypedArray()
 
         `when`("access model name") {
             val modelNames = gpt3Models.map { it.modelName }
 
             then("returns correct model names") {
-                val expectedModelNames = listOf(
-                    "text-ada-001",
-                    "text-babbage-001",
-                    "text-curie-001",
-                    "text-davinci-003"
-                )
+                val expectedModelNames =
+                    listOf(
+                        "text-ada-001",
+                        "text-babbage-001",
+                        "text-curie-001",
+                        "text-davinci-003",
+                    )
                 modelNames shouldBe expectedModelNames
             }
         }
@@ -29,28 +30,30 @@ class ModelsTest : BehaviorSpec({
             val maxTokens = gpt3Models.map { it.maxTokens }
 
             then("returns correct max tokens") {
-                val expectedMaxTokens = listOf(
-                    2048,
-                    2048,
-                    2048,
-                    4000
-                )
+                val expectedMaxTokens =
+                    listOf(
+                        2048,
+                        2048,
+                        2048,
+                        4000,
+                    )
                 maxTokens shouldBe expectedMaxTokens
             }
         }
     }
 
     given("codex model enum values") {
-        val codexModels = CodexModel.values()
+        val codexModels = CodexModel.entries.toTypedArray()
 
         `when`("access model name") {
             val modelNames = codexModels.map { it.modelName }
 
             then("returns correct model names") {
-                val expectedModelNames = listOf(
-                    "code-cushman-001",
-                    "text-davinci-003"
-                )
+                val expectedModelNames =
+                    listOf(
+                        "code-cushman-001",
+                        "text-davinci-003",
+                    )
                 modelNames shouldBe expectedModelNames
             }
         }
@@ -59,10 +62,11 @@ class ModelsTest : BehaviorSpec({
             val maxTokens = codexModels.map { it.maxTokens }
 
             then("returns correct max tokens") {
-                val expectedMaxTokens = listOf(
-                    2048,
-                    8000
-                )
+                val expectedMaxTokens =
+                    listOf(
+                        2048,
+                        8000,
+                    )
                 maxTokens shouldBe expectedMaxTokens
             }
         }

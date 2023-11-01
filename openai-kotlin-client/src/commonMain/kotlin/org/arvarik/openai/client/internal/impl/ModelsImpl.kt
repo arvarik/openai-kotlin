@@ -7,10 +7,10 @@ import org.arvarik.openai.core.api.models.RetrieveModelResponse
 
 internal class ModelsImpl(private val httpClient: OpenAIHTTPClient) : Models {
     override suspend fun retrieveModel(request: RetrieveModelRequest): RetrieveModelResponse {
-        return httpClient.get("${RetrieveModelsEndpoint}${request.model}")
+        return httpClient.get("${RETRIEVE_MODELS_ENDPOINT}${request.model}")
     }
 
     companion object {
-        private const val RetrieveModelsEndpoint = "v1/models/"
+        private const val RETRIEVE_MODELS_ENDPOINT = "v1/models/"
     }
 }

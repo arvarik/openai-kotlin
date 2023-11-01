@@ -16,6 +16,5 @@ data class RetrieveModelRequest(
     /**
      * ID of the model to use for request
      */
-    val model: String
-
+    val model: String,
 ) : OpenAIRequest

@@ -19,7 +19,6 @@ data class CreateFineTuneRequest(
      */
     @SerialName("training_file")
     val trainingFileId: String,
-
     /**
      * The ID of an uploaded file that contains validation data.
      * If you provide this file, the data is used to generate validation metrics periodically during fine-tuning.
@@ -29,21 +28,18 @@ data class CreateFineTuneRequest(
      */
     @SerialName("validation_file")
     val validationFileId: String? = null,
-
     /**
      * The name of the base model to fine-tune. Defaults to "curie". Example "ada"
      *
      * @see [See latest models](https://beta.openai.com/docs/models/gpt-3)
      */
     val model: String? = null,
-
     /**
      * The number of epochs to train the model for. An epoch refers to one full cycle through the training dataset.
      * Defaults to 4
      */
     @SerialName("n_epochs")
     val numberOfEpochs: Int? = null,
-
     /**
      * The batch size to use for training. The batch size is the number of training examples used to train a single
      * forward and backward pass. By default, the batch size will be dynamically configured to be ~0.2% of the number
@@ -52,7 +48,6 @@ data class CreateFineTuneRequest(
      */
     @SerialName("batch_size")
     val batchSize: Int? = null,
-
     /**
      * The learning rate multiplier to use for training. The fine-tuning learning rate is the original learning rate
      * used for pretraining multiplied by this value.
@@ -64,7 +59,6 @@ data class CreateFineTuneRequest(
      */
     @SerialName("learning_rate_multiplier")
     val learningRateMultiplier: Double? = null,
-
     /**
      * The weight to use for loss on the prompt tokens. This controls how much the model tries to learn to generate
      * the prompt (as compared to the completion which always has a weight of 1.0), and can add a stabilizing effect to
@@ -75,7 +69,6 @@ data class CreateFineTuneRequest(
      */
     @SerialName("prompt_loss_weight")
     val promptLossWeight: Double? = null,
-
     /**
      * If set, it calculates classification-specific metrics such as accuracy and F-1 score using the validation set at
      * the end of every epoch. These metrics can be viewed in the results file. In order to compute classification metrics,
@@ -86,20 +79,17 @@ data class CreateFineTuneRequest(
      */
     @SerialName("compute_classification_metrics")
     val computeClassificationMetrics: Boolean? = null,
-
     /**
      * The number of classes in a classification task. This parameter is required for multiclass classification.
      */
     @SerialName("classification_n_classes")
     val classificationClassesNumber: Int? = null,
-
     /**
      * The positive class in binary classification. This parameter is needed to generate precision, recall, and F1 metrics
      * when doing binary classification.
      */
     @SerialName("classification_positive_class")
     val classificationPositiveClass: String? = null,
-
     /**
      * If this is provided, we calculate F-beta scores at the specified beta values. The F-beta score is a generalization
      * of F-1 score. This is only used for binary classification. With a beta of 1 (i.e. the F-1 score), precision and
@@ -108,11 +98,10 @@ data class CreateFineTuneRequest(
      */
     @SerialName("classification_betas")
     val classificationBetas: List<Double>? = null,
-
     /**
      * A string of up to 40 characters that will be added to your fine-tuned model name.
      * For example, a suffix of "custom-model-name" would produce a model name like
      * ada:ft-your-org:custom-model-name-2022-02-15-04-21-04
      */
-    val suffix: String? = null
+    val suffix: String? = null,
 ) : OpenAIRequest

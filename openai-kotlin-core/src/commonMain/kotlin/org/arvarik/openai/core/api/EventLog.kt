@@ -13,20 +13,17 @@ data class EventLog(
      */
     @SerialName("object")
     val objectType: String,
-
     /**
      * Epoch represent when the event has been created.
      */
     @SerialName("created_at")
     val createdAt: Long,
-
     /**
      * Event log level. Example, "info"
      */
     val level: String,
-
     /**
      * Event log message.
      */
-    val message: String
+    val message: String,
 )

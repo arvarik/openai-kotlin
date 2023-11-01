@@ -39,7 +39,10 @@ import org.arvarik.openai.core.api.OpenAIResponse
 internal class OpenAIHTTPClient(config: OpenAIClientConfig) {
     private val httpClient = constructHttpClient(config)
 
-    suspend inline fun <reified T : OpenAIResponse> post(request: OpenAIRequest?, endpoint: String): T {
+    suspend inline fun <reified T : OpenAIResponse> post(
+        request: OpenAIRequest?,
+        endpoint: String,
+    ): T {
         return this.request(typeInfo<T>()) {
             it.post {
                 url(path = endpoint)
@@ -67,13 +70,19 @@ internal class OpenAIHTTPClient(config: OpenAIClientConfig) {
         }
     }
 
-    suspend inline fun <reified T : OpenAIResponse> post(form: List<PartData>, endpoint: String): T {
+    suspend inline fun <reified T : OpenAIResponse> post(
+        form: List<PartData>,
+        endpoint: String,
+    ): T {
         return this.request(typeInfo<T>()) {
             it.submitFormWithBinaryData(formData = form, url = endpoint)
         }
     }
 
-    private suspend fun <T : Any> request(info: TypeInfo, block: suspend (HttpClient) -> HttpResponse): T {
+    private suspend fun <T : Any> request(
+        info: TypeInfo,
+        block: suspend (HttpClient) -> HttpResponse,
+    ): T {
         return try {
             val response = block(httpClient)
 
@@ -136,10 +145,11 @@ internal class OpenAIHTTPClient(config: OpenAIClientConfig) {
     companion object {
         private const val OPENAI_URL: String = "api.openai.com"
 
-        private val jsonConfiguration = Json {
-            isLenient = true
-            ignoreUnknownKeys = true
-            prettyPrint = true
-        }
+        private val jsonConfiguration =
+            Json {
+                isLenient = true
+                ignoreUnknownKeys = true
+                prettyPrint = true
+            }
     }
 }

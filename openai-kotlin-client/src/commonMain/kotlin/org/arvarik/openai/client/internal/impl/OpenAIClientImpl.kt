@@ -16,7 +16,7 @@ import org.arvarik.openai.client.internal.io.LocalFileSystem
 internal class OpenAIClientImpl(
     private val config: OpenAIClientConfig,
     private val httpClient: OpenAIHTTPClient = OpenAIHTTPClient(config),
-    private val localFileReader: LocalFileReader = LocalFileReader(config, LocalFileSystem)
+    private val localFileReader: LocalFileReader = LocalFileReader(config, LocalFileSystem),
 ) : OpenAIClient,
     Completions by CompletionsImpl(httpClient),
     Edits by EditsImpl(httpClient),
