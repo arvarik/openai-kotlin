@@ -6,12 +6,11 @@ import org.arvarik.openai.core.api.embeddings.CreateEmbeddingsRequest
 import org.arvarik.openai.core.api.embeddings.CreateEmbeddingsResponse
 
 internal class EmbeddingsImpl(private val httpClient: OpenAIHTTPClient) : Embeddings {
-
     override suspend fun createEmbeddings(request: CreateEmbeddingsRequest): CreateEmbeddingsResponse {
-        return httpClient.post(request, EmbeddingsEndpoint)
+        return httpClient.post(request, EMBEDDINGS_ENDPOINT)
     }
 
     companion object {
-        private const val EmbeddingsEndpoint = "v1/embeddings"
+        private const val EMBEDDINGS_ENDPOINT = "v1/embeddings"
     }
 }

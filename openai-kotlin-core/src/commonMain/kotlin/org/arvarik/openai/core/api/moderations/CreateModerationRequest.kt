@@ -16,7 +16,6 @@ data class CreateModerationRequest(
      * A list of input text to classify
      */
     val input: List<String>,
-
     /**
      * Two content moderations models are available: text-moderation-stable and text-moderation-latest
      *
@@ -24,5 +23,5 @@ data class CreateModerationRequest(
      * always using our most accurate model. If you use text-moderation-stable, we will provide advanced notice before
      * updating the model. Accuracy of text-moderation-stable may be slightly lower than for text-moderation-latest
      */
-    val model: String? = null
+    val model: String? = null,
 ) : OpenAIRequest

@@ -25,36 +25,36 @@ open class DataClassSerializationCommonTest<T>(
     serializer: KSerializer<T>,
     dataClassInstance: T,
     expectedSerializedString: String,
-    invalidSerializedString: String
+    invalidSerializedString: String,
 ) : BehaviorSpec({
 
-    given("Data class instance") {
-        `when`("Data class instance is serialized") {
-            val dataClassInstanceSerialized = Json.encodeToString(serializer, dataClassInstance)
-            then("return correct serialization") {
-                JSONAssert.assertEquals(
-                    expectedSerializedString,
-                    dataClassInstanceSerialized,
-                    JSONCompareMode.NON_EXTENSIBLE
-                )
-            }
+        given("Data class instance") {
+            `when`("Data class instance is serialized") {
+                val dataClassInstanceSerialized = Json.encodeToString(serializer, dataClassInstance)
+                then("return correct serialization") {
+                    JSONAssert.assertEquals(
+                        expectedSerializedString,
+                        dataClassInstanceSerialized,
+                        JSONCompareMode.NON_EXTENSIBLE,
+                    )
+                }
 
-            and("Data class instance string is deserialized") {
-                val dataClassInstanceDeserialized = Json.decodeFromString(serializer, dataClassInstanceSerialized)
-                then("returns correct data class instance deserialized") {
-                    dataClassInstanceDeserialized shouldBe dataClassInstance
+                and("Data class instance string is deserialized") {
+                    val dataClassInstanceDeserialized = Json.decodeFromString(serializer, dataClassInstanceSerialized)
+                    then("returns correct data class instance deserialized") {
+                        dataClassInstanceDeserialized shouldBe dataClassInstance
+                    }
                 }
             }
         }
-    }
 
-    given("Invalid serialized string") {
-        `when`("Invalid data class instance string is deserialized") {
-            then("throw SerializationException") {
-                shouldThrow<SerializationException> {
-                    Json.decodeFromString(serializer, invalidSerializedString)
+        given("Invalid serialized string") {
+            `when`("Invalid data class instance string is deserialized") {
+                then("throw SerializationException") {
+                    shouldThrow<SerializationException> {
+                        Json.decodeFromString(serializer, invalidSerializedString)
+                    }
                 }
             }
         }
-    }
-})
+    })

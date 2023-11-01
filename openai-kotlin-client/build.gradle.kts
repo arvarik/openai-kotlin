@@ -1,12 +1,14 @@
 plugins {
     kotlin("multiplatform")
-    kotlin("plugin.serialization") version "1.8.0"
+    kotlin("plugin.serialization")
 }
 
 version = "0.0.1"
 
-val ktorVersion = "2.2.1"
-val okioVersion = "3.2.0"
+val ktorVersion = "2.3.5"
+val okioVersion = "3.6.0"
+
+val kotlinVersion: String by project
 
 kotlin {
     jvm {
@@ -17,9 +19,9 @@ kotlin {
     }
     val hostOs = System.getProperty("os.name")
     val nativeTarget = when {
-        hostOs == "Mac OS X" -> macosX64("native")
-        hostOs == "Linux" -> linuxX64("native")
-        hostOs.startsWith("Windows") -> mingwX64("native")
+        hostOs == "Mac OS X" -> macosX64("myNative")
+        hostOs == "Linux" -> linuxX64("myNative")
+        hostOs.startsWith("Windows") -> mingwX64("myNative")
         else -> throw GradleException("Host OS is not supported in Kotlin/Native.")
     }
 
@@ -30,9 +32,9 @@ kotlin {
                 api(project(":openai-kotlin-core"))
 
                 // Jetbrains
-                implementation("org.jetbrains.kotlin:kotlin-stdlib:1.8.0")
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.4.1")
+                implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.0")
 
                 // Ktor
                 implementation("io.ktor:ktor-client-auth:$ktorVersion")
@@ -63,11 +65,11 @@ kotlin {
         }
         val jvmTest by getting
 
-        val nativeMain by getting {
+        val myNativeMain by getting {
             dependencies {
                 implementation("io.ktor:ktor-client-curl:$ktorVersion")
             }
         }
-        val nativeTest by getting
+        val myNativeTest by getting
     }
 }

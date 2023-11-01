@@ -11,10 +11,8 @@ import kotlin.time.Duration
  */
 data class OpenAIClientConfig(
     val token: String,
-
     val timeout: HttpTimeout? = null,
-
-    val imagesFilepath: String? = null
+    val imagesFilepath: String? = null,
 )
 
 /**
@@ -26,8 +24,6 @@ data class OpenAIClientConfig(
  */
 data class HttpTimeout(
     val connect: Duration? = null,
-
     val request: Duration? = null,
-
-    val socket: Duration? = null
+    val socket: Duration? = null,
 )

@@ -1,13 +1,13 @@
 plugins {
     kotlin("multiplatform")
-    kotlin("plugin.serialization") version "1.8.0"
+    kotlin("plugin.serialization")
 }
 
 version = "0.0.1"
 
-val kotlinVersion = "1.8.0"
-val kotlinxSerializationVersion = "1.4.1"
-val kotestVersion = "5.5.4"
+val kotlinVersion: String by project
+val kotlinxSerializationVersion = "1.6.0"
+val kotestVersion = "5.7.2"
 
 kotlin {
     jvm {
@@ -26,9 +26,9 @@ kotlin {
     }
     val hostOs = System.getProperty("os.name")
     val nativeTarget = when {
-        hostOs == "Mac OS X" -> macosX64("native")
-        hostOs == "Linux" -> linuxX64("native")
-        hostOs.startsWith("Windows") -> mingwX64("native")
+        hostOs == "Mac OS X" -> macosX64("myNative")
+        hostOs == "Linux" -> linuxX64("myNative")
+        hostOs.startsWith("Windows") -> mingwX64("myNative")
         else -> throw GradleException("Host OS is not supported in Kotlin/Native.")
     }
 
@@ -48,7 +48,7 @@ kotlin {
 
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinxSerializationVersion")
 
-                implementation("org.skyscreamer:jsonassert:1.5.0")
+                implementation("org.skyscreamer:jsonassert:1.5.1")
             }
         }
     }

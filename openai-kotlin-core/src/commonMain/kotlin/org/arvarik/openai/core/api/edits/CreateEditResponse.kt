@@ -17,21 +17,18 @@ data class CreateEditResponse(
      * The object type of the response
      */
     val `object`: String,
-
     /**
      * The creation time in epoch seconds
      */
     val created: Long,
-
     /**
      * The list of generated completions with associated logprobs if applicable
      */
     val choices: List<Edit>,
-
     /**
      * The API resources used by the associated request
      */
-    val usage: Usage
+    val usage: Usage,
 ) : OpenAIResponse
 
 /**
@@ -43,9 +40,8 @@ data class Edit(
      * The generated response text
      */
     val text: String,
-
     /**
      * The index of the completion choice in the returned list
      */
-    val index: Int
+    val index: Int,
 )

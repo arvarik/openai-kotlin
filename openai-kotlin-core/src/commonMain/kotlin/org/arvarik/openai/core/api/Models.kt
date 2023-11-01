@@ -15,7 +15,7 @@ enum class GPT3Model(val modelName: String, val maxTokens: Int) {
 
     CURIE("text-curie-001", 2048),
 
-    DAVINCI("text-davinci-003", 4000)
+    DAVINCI("text-davinci-003", 4000),
 }
 
 /**
@@ -29,5 +29,5 @@ enum class GPT3Model(val modelName: String, val maxTokens: Int) {
 enum class CodexModel(val modelName: String, val maxTokens: Int) {
     CUSHMAN("code-cushman-001", 2048),
 
-    DAVINCI("text-davinci-003", 8000)
+    DAVINCI("text-davinci-003", 8000),
 }

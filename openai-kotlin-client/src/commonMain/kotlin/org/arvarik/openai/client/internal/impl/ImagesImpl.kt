@@ -17,42 +17,46 @@ import org.arvarik.openai.core.api.images.CreateImageVariationResponse
 
 internal class ImagesImpl(
     private val httpClient: OpenAIHTTPClient,
-    private val localFileReader: LocalFileReader
+    private val localFileReader: LocalFileReader,
 ) : Images {
-
     override suspend fun createImage(request: CreateImageRequest): CreateImageResponse {
-        return httpClient.post(request, ImagesGenerationsEndpoint)
+        return httpClient.post(request, IMAGES_GENERATIONS_ENDPOINT)
     }
 
     override suspend fun createImageEdit(request: CreateImageEditRequest): CreateImageEditResponse {
-        val form = formData {
-            appendPngImageInBytes("image", request.image)
-            append(key = "prompt", value = request.prompt)
+        val form =
+            formData {
+                appendPngImageInBytes("image", request.image)
+                append(key = "prompt", value = request.prompt)
 
-            request.mask?.let { appendPngImageInBytes("mask", it) }
-            request.n?.let { append(key = "n", value = it) }
-            request.size?.let { append(key = "size", value = it) }
-            request.responseFormat?.let { append(key = "response_format", value = it) }
-            request.user?.let { append(key = "user", value = it) }
-        }
+                request.mask?.let { appendPngImageInBytes("mask", it) }
+                request.n?.let { append(key = "n", value = it) }
+                request.size?.let { append(key = "size", value = it) }
+                request.responseFormat?.let { append(key = "response_format", value = it) }
+                request.user?.let { append(key = "user", value = it) }
+            }
 
-        return httpClient.post(form, ImagesEditsEndpoint)
+        return httpClient.post(form, IMAGES_EDITS_ENDPOINT)
     }
 
     override suspend fun createImageVariation(request: CreateImageVariationRequest): CreateImageVariationResponse {
-        val form = formData {
-            appendPngImageInBytes("image", request.image)
+        val form =
+            formData {
+                appendPngImageInBytes("image", request.image)
 
-            request.n?.let { append(key = "n", value = it) }
-            request.size?.let { append(key = "size", value = it) }
-            request.responseFormat?.let { append(key = "response_format", value = it) }
-            request.user?.let { append(key = "user", value = it) }
-        }
+                request.n?.let { append(key = "n", value = it) }
+                request.size?.let { append(key = "size", value = it) }
+                request.responseFormat?.let { append(key = "response_format", value = it) }
+                request.user?.let { append(key = "user", value = it) }
+            }
 
-        return httpClient.post(form, ImagesVariationsEndpoint)
+        return httpClient.post(form, IMAGES_VARIATIONS_ENDPOINT)
     }
 
-    private fun FormBuilder.appendPngImageInBytes(key: String, filePath: String) {
+    private fun FormBuilder.appendPngImageInBytes(
+        key: String,
+        filePath: String,
+    ) {
         val image = localFileReader.readImageFileInBytes(filePath)
         append(
             key = key,
@@ -60,13 +64,13 @@ internal class ImagesImpl(
             Headers.build {
                 append(HttpHeaders.ContentType, ContentType.Image.PNG.toString())
                 append(HttpHeaders.ContentDisposition, "filename=\"${image.filepath}\"")
-            }
+            },
         )
     }
 
     companion object {
-        private const val ImagesGenerationsEndpoint = "/v1/images/generations"
-        private const val ImagesEditsEndpoint = "/v1/images/edits"
-        private const val ImagesVariationsEndpoint = "/v1/images/variations"
+        private const val IMAGES_GENERATIONS_ENDPOINT = "/v1/images/generations"
+        private const val IMAGES_EDITS_ENDPOINT = "/v1/images/edits"
+        private const val IMAGES_VARIATIONS_ENDPOINT = "/v1/images/variations"
     }
 }

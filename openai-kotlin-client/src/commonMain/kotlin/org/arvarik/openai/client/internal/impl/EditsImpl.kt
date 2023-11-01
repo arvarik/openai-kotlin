@@ -6,12 +6,11 @@ import org.arvarik.openai.core.api.edits.CreateEditRequest
 import org.arvarik.openai.core.api.edits.CreateEditResponse
 
 internal class EditsImpl(private val httpClient: OpenAIHTTPClient) : Edits {
-
     override suspend fun createEdit(request: CreateEditRequest): CreateEditResponse {
-        return httpClient.post(request, EditsEndpoint)
+        return httpClient.post(request, EDITS_ENDPOINT)
     }
 
     companion object {
-        private const val EditsEndpoint = "v1/edits"
+        private const val EDITS_ENDPOINT = "v1/edits"
     }
 }

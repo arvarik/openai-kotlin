@@ -10,5 +10,5 @@ data class Image(
     /**
      * The url location of the image
      */
-    val url: String
+    val url: String,
 )

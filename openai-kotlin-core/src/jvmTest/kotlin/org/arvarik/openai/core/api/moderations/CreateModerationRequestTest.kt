@@ -12,5 +12,5 @@ class CreateModerationRequestTest : DataClassSerializationCommonTest<CreateModer
     serializer(),
     createModerationRequest,
     expectedSerializedString = """{"input":["Test input"]}""",
-    invalidSerializedString = """{"inputs":["Test input"]}"""
+    invalidSerializedString = """{"inputs":["Test input"]}""",
 )

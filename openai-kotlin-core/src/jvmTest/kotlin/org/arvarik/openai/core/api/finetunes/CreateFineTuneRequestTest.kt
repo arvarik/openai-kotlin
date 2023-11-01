@@ -3,20 +3,21 @@ package org.arvarik.openai.core.api.finetunes
 import kotlinx.serialization.serializer
 import org.arvarik.openai.core.api.common.DataClassSerializationCommonTest
 
-private val createFineTuneRequest = CreateFineTuneRequest(
-    trainingFileId = "trainingUploadedFileId",
-    validationFileId = "validationUploadedFileId",
-    model = "ada",
-    numberOfEpochs = 4,
-    batchSize = 256,
-    learningRateMultiplier = 0.2,
-    promptLossWeight = 0.01,
-    computeClassificationMetrics = false,
-    classificationClassesNumber = 10,
-    classificationPositiveClass = "classificationPositiveClass",
-    classificationBetas = listOf(1.0, 2.0, 3.0),
-    suffix = "test"
-)
+private val createFineTuneRequest =
+    CreateFineTuneRequest(
+        trainingFileId = "trainingUploadedFileId",
+        validationFileId = "validationUploadedFileId",
+        model = "ada",
+        numberOfEpochs = 4,
+        batchSize = 256,
+        learningRateMultiplier = 0.2,
+        promptLossWeight = 0.01,
+        computeClassificationMetrics = false,
+        classificationClassesNumber = 10,
+        classificationPositiveClass = "classificationPositiveClass",
+        classificationBetas = listOf(1.0, 2.0, 3.0),
+        suffix = "test",
+    )
 
 /**
  * Test fixture for [CreateFineTuneRequest].
@@ -24,7 +25,8 @@ private val createFineTuneRequest = CreateFineTuneRequest(
 class CreateFineTuneRequestTest : DataClassSerializationCommonTest<CreateFineTuneRequest>(
     serializer(),
     createFineTuneRequest,
-    expectedSerializedString = """
+    expectedSerializedString =
+        """
         {
            "training_file": "trainingUploadedFileId",
            "validation_file": "validationUploadedFileId",
@@ -39,8 +41,9 @@ class CreateFineTuneRequestTest : DataClassSerializationCommonTest<CreateFineTun
            "classification_betas": [1.0, 2.0, 3.0],
            "suffix": "test"  
         }
-    """.trimIndent(),
-    invalidSerializedString = """
+        """.trimIndent(),
+    invalidSerializedString =
+        """
         {
            "validation_file": "validationUploadedFileId",
            "model": "ada",
@@ -53,5 +56,5 @@ class CreateFineTuneRequestTest : DataClassSerializationCommonTest<CreateFineTun
            "classification_positive_class": "classificationPositiveClass",
            "classification_betas": [1.0, 2.0, 3.0],
         }
-    """.trimIndent()
+        """.trimIndent(),
 )

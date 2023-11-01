@@ -7,10 +7,10 @@ import org.arvarik.openai.core.api.finetunes.CreateFineTuneResponse
 
 internal class FineTunesImpl(private val httpClient: OpenAIHTTPClient) : FineTunes {
     override suspend fun createFineTune(request: CreateFineTuneRequest): CreateFineTuneResponse {
-        return httpClient.post(request, FineTunesEndpoint)
+        return httpClient.post(request, FINE_TUNES_ENDPOINT)
     }
 
     companion object {
-        private const val FineTunesEndpoint = "v1/fine-tunes"
+        private const val FINE_TUNES_ENDPOINT = "v1/fine-tunes"
     }
 }

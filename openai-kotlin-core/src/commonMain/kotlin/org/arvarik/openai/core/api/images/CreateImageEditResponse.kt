@@ -16,9 +16,8 @@ data class CreateImageEditResponse(
      * The creation time in epoch seconds
      */
     val created: Long,
-
     /**
      * The list of generated images
      */
-    val data: List<Image>
+    val data: List<Image>,
 ) : OpenAIResponse
